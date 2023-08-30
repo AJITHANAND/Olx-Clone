@@ -1,9 +1,19 @@
-import React, { useState } from 'react';
-
+import React, { useState,useContext } from 'react';
 import Logo from '../../olx-logo.png';
 import './Signup.css';
+import { FirebaseContext } from '../../Contexts/FirebaseContext';
+import { createUserWithEmailAndPassword, getAuth,updateProfile } from 'firebase/auth';
+import { userCollection } from '../../firebase/constants';
+import { addDoc } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
+
+
+
 
 export default function Signup() {
+  const {Firebase} = useContext(FirebaseContext);
+  const auth = getAuth(Firebase);
+  const navigate = useNavigate();
 
   const [user,setUser] = useState({
     'username':'',
@@ -23,7 +33,34 @@ export default function Signup() {
 
   const formSubmit = (e)=>{
     e.preventDefault();
-    console.log(user);
+    createUserWithEmailAndPassword(auth,user.email,user.password)
+      .then((userCredential)=>{
+        const userData =  {
+          uid : userCredential.user.uid,
+          username : user.username,
+          phone : user.phone
+        }
+        console.log(userData);
+        addDoc(userCollection,userData).then(
+          ()=>{
+            navigate('/login')
+          }
+        );
+      })
+      .catch((error)=>{
+        if (error.code === 'auth/email-already-in-use') {
+          alert('Email Already in Use');
+        }
+        else if (error.code === 'auth/invalid-email') {
+          alert('Invalid Email');
+        }
+        else if (error.code === 'auth/weak-password') {
+          alert('Weak Password');
+        }
+        else{
+          console.log(error)
+        }
+      })
   }
 
   return (
