@@ -45,7 +45,10 @@ export default function Signup() {
           ()=>{
             navigate('/login')
           }
-        );
+        ).catch((error)=>{
+          alert(error.message);
+          console.log(error);
+        });
       })
       .catch((error)=>{
         if (error.code === 'auth/email-already-in-use') {
@@ -117,7 +120,7 @@ export default function Signup() {
           <br />
           <button>Signup</button>
         </form>
-        <a>Login</a>
+        <a onClick={()=>navigate('/login')}>Already have an account?</a>
       </div>
     </div>
   );
