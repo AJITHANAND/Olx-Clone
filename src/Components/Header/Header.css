@@ -106,13 +106,16 @@
   margin-right: 5px;
 }
 
+.loginPage {
+  margin-left: 0.5rem;
+}
 .loginPage hr {
   margin: 0;
   background-color: black;
   height: 2px;
 }
 
-.loginPage a{
+.loginPage a {
   text-decoration: none;
 }
 
@@ -160,5 +163,18 @@
   .productSearch,
   .sellMenu {
     display: none;
+  }
+  .headerChildDiv {
+    flex-direction: row;
+  }
+}
+
+@media only screen and (max-width: 1260px) {
+  .placeSearch {
+    width: 14rem;
+    padding: 0;
+  }
+  .productSearch{
+    width: 25rem;
   }
 }
