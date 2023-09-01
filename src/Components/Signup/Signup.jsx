@@ -2,7 +2,7 @@ import React, { useState,useContext } from 'react';
 import Logo from '../../olx-logo.png';
 import './Signup.css';
 import { FirebaseContext } from '../../Contexts/FirebaseContext';
-import { createUserWithEmailAndPassword, getAuth,updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth,updatePhoneNumber,updateProfile } from 'firebase/auth';
 import { userCollection } from '../../firebase/constants';
 import { addDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
@@ -35,15 +35,21 @@ export default function Signup() {
     e.preventDefault();
     createUserWithEmailAndPassword(auth,user.email,user.password)
       .then((userCredential)=>{
+
+        updateProfile(userCredential.user,{
+          displayName: user.username
+        })
+        // .then(()=>alert('username added'))
+        // .catch((error)=>console.log(error.message));
+
         const userData =  {
           uid : userCredential.user.uid,
           username : user.username,
           phone : user.phone
         }
-        console.log(userData);
         addDoc(userCollection,userData).then(
           ()=>{
-            navigate('/login')
+            navigate('/')
           }
         ).catch((error)=>{
           alert(error.message);
