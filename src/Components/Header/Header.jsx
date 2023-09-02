@@ -9,6 +9,7 @@ import CloseButton from "../../assets/CloseButton";
 import { Modal, Button } from "react-bootstrap";
 import Login from "../Login/Login";
 import { AuthContext } from "../../Contexts/User";
+import Logout from "../Logout/Logout"
 
 function Header() {
   const [showModal, setShowModal] = React.useState(false);
@@ -53,7 +54,7 @@ function Header() {
         </div>
         {user && (
           <div className="loginPage">
-            <span>Logout</span>
+            <Logout/>
           </div>
         )}
         <div className="sellMenu">

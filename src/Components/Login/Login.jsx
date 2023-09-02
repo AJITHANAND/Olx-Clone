@@ -25,7 +25,7 @@ function Login() {
   const signIn = ()=>{
     signInWithEmailAndPassword(auth,cred.email,cred.password)
     .then((userCredential)=>{
-      console.log(userCredential.user);
+      // console.log(userCredential.user);
     
     })
   };
