@@ -21,7 +21,7 @@ function HeaderModal({ showModal, handleCloseModal, contentComponent }) {
         <div className="w-100 text-center">
           <OlxLogo />
         </div>
-        {contentComponent}
+        {contentComponent(handleCloseModal)  }
       </Modal.Body>
     </Modal>
   );

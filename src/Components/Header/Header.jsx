@@ -64,7 +64,9 @@ function Header() {
           </div>
         </div>
       </div>
-      <HeaderModal showModal={showModal} handleCloseModal={handleCloseModal} contentComponent={<Login />} />
+      <HeaderModal showModal={showModal} handleCloseModal={handleCloseModal} 
+      contentComponent={(handleCloseModal)=> <Login handleCloseModal={handleCloseModal}/>} 
+      />
     </div>
   );
 }

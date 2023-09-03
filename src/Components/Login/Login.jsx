@@ -3,7 +3,7 @@ import React from "react";
 import "./Login.css";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import  {FirebaseContext} from "../../Contexts/FirebaseContext"
-function Login() {
+function Login({handleCloseModal}) {
   const [cred, setCred] = useState({ email: "", password: "" });
   const [login,setLogin] = useState(false);
   const mailRegEx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
@@ -25,8 +25,7 @@ function Login() {
   const signIn = ()=>{
     signInWithEmailAndPassword(auth,cred.email,cred.password)
     .then((userCredential)=>{
-      // console.log(userCredential.user);
-    
+        handleCloseModal();
     })
   };
 
