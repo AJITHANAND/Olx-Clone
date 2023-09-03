@@ -5,11 +5,10 @@ import Search from "../../assets/Search";
 import Arrow from "../../assets/Arrow";
 import SellButton from "../../assets/SellButton";
 import SellButtonPlus from "../../assets/SellButtonPlus";
-import CloseButton from "../../assets/CloseButton";
-import { Modal, Button } from "react-bootstrap";
-import Login from "../Login/Login";
 import { AuthContext } from "../../Contexts/User";
 import Logout from "../Logout/Logout"
+import Login from "../Login/Login";
+import HeaderModal from "../Modal/Modal";
 
 function Header() {
   const [showModal, setShowModal] = React.useState(false);
@@ -65,26 +64,7 @@ function Header() {
           </div>
         </div>
       </div>
-      {/* Bootstrap Modal */}
-
-      <Modal
-        style={{ width: "30dvw", marginLeft: "38%" }}
-        show={showModal}
-        onHide={handleCloseModal}
-      >
-        <Modal.Body style={{ padding: "0.5rem" }}>
-          <div className="d-flex justify-content-end align-items-center closeBtnDiv">
-            <span data-aut-id="btnClose" onClick={handleCloseModal}>
-              <CloseButton />
-            </span>
-          </div>
-          <div className="w-100 text-center">
-            <OlxLogo />
-          </div>
-
-          <Login />
-        </Modal.Body>
-      </Modal>
+      <HeaderModal showModal={showModal} handleCloseModal={handleCloseModal} contentComponent={<Login />} />
     </div>
   );
 }

@@ -1,0 +1,7 @@
+.header-modal{
+    overflow: scroll;
+}
+
+.header-modal::-webkit-scrollbar{
+    display: none;
+}
