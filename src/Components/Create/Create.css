@@ -1,32 +1,75 @@
 .centerDiv {
-    border: 1px solid black;
-    width: max-content;
-    padding: 50px;
-    position: absolute;
+  border: 1px solid black;
+  width: max-content;
+  padding: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 6px;
+}
+
+.input {
+  border-top-color: transparent;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  outline-color: transparent;
+}
+
+.uploadBtn {
+  margin-top: 30px;
+  width: 100%;
+  height: 48px;
+  /* border-color: transparent; */
+  background-color: #002f34;
+  color: whitesmoke;
+  font-weight: 900;
+}
+
+.uploadBtn:hover {
+  background-color: white;
+  color: #002f34;
+  border: 2px solid #002f34;
+}
+
+.container {
+  border: 1px solid var(--blackDividers);
+  border-radius: 5px;
+}
+
+@media only screen and (max-width: 1555px) {
+  .centerDiv {
     top: 65%;
+  }
+}
+
+@media only screen and (max-height: 455px) {
+  .centerDiv {
+    position: absolute;
+    top: 80%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 6px;
   }
-  .input {
-    border-top-color: transparent;
-    border-left-color: transparent;
-    border-right-color: transparent;
-    outline-color: transparent;
-  }
-  
-  .uploadBtn {
-    margin-top: 30px;
-    width: 100%;
-    height: 48px;
-    /* border-color: transparent; */
-    background-color: #002f34;
-    color: whitesmoke;
-    font-weight: 900;
-  }
-  .uploadBtn:hover {
-    background-color: white;
-    color: #002f34;
-    border: 2px solid #002f34;
-  }
-  
+}
+
+.centerDiv table tr :has(span, i) {
+  color: var(--blackSecondaryText);
+  fill: var(--blackSecondaryText);
+}
+
+.centerDiv table tr:hover {
+  background-color: var(--blackDividers);
+  cursor: pointer;
+  color: var(--blackText);
+}
+
+.centerDiv table tr:hover span {
+  color: var(--blackText);
+}
+
+table tr td span {
+  font-size: 1.2rem;
+}
+
+.centerDiv table tr:hover i {
+  fill: var(--blackText);
+}

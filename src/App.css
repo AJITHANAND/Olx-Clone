@@ -173,4 +173,9 @@
 body{
     font-family: var(--customLTRFont);
     color: var(--primaryBase);
+    overflow-x: scroll;
+}
+
+::-webkit-scrollbar{
+    display: none;
 }

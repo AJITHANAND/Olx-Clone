@@ -1,50 +1,30 @@
-import React, { Fragment } from 'react';
-import './Create.css';
-import Header from '../Header/Header';
-
+import React from "react";
+import "./Create.css";
+import { categoriesContent } from "../../Constants/categories";
 const Create = () => {
   return (
-    <Fragment>
-      <Header />
-      <card>
-        <div className="centerDiv">
-          <form>
-            <label htmlFor="fname">Name</label>
-            <br />
-            <input
-              className="input"
-              type="text"
-              id="fname"
-              name="Name"
-              defaultValue="John"
-            />
-            <br />
-            <label htmlFor="fname">Category</label>
-            <br />
-            <input
-              className="input"
-              type="text"
-              id="fname"
-              name="category"
-              defaultValue="John"
-            />
-            <br />
-            <label htmlFor="fname">Price</label>
-            <br />
-            <input className="input" type="number" id="fname" name="Price" />
-            <br />
-          </form>
-          <br />
-          <img alt="Posts" width="200px" height="200px" src=""></img>
-          <form>
-            <br />
-            <input type="file" />
-            <br />
-            <button className="uploadBtn">upload and Submit</button>
-          </form>
+    <>
+      <div className="container centerDiv border-0">
+        <h1 className="font-weight-bold">POST YOUR AD</h1>
+        <div className="container">
+          <table>
+            <thead>
+            <caption style={{width:'max-content'}}>CHOOSE A CATEGORY</caption>
+            </thead>
+            <tbody>
+              {categoriesContent.map((item, index) => (
+                <tr>
+                  <td key={index} className="p-2">
+                    <i className="ml-3 mr-3">{item.icon}</i>
+                    <span>{item.name}</span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-      </card>
-    </Fragment>
+      </div>
+    </>
   );
 };
 
