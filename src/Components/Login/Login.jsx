@@ -32,7 +32,7 @@ function Login({handleCloseModal}) {
 
   return (
     <div>
-      <div className="centerDiv">
+      <div className="login-centerDiv">
         <h3 className="log-Mail">
           <span>Enter your email to login</span>
         </h3>
