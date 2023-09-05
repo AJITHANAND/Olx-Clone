@@ -11,12 +11,18 @@ export const categoriesContent = [
   {
     name: "Cars",
     icon: <CarIcon />,
+    brand: ["Toyota", "Honda", "Ford", "BMW", "Audi", "Tata", "Maruti-Suzuki"],
   },
   {
     name: "Mobiles",
     icon: <MobileIcon />,
+    brand: ["Samsung", "Apple", "OnePlus", "Oppo", "Vivo", "Realme", "Mi"],
   },
-  { name: "Bikes", icon: <BikeIcon /> },
+  {
+    name: "Bikes",
+    icon: <BikeIcon />,
+    brand: ["Bajaj", "Yamaha", "KTM",'Royal Enfield','Honda', 'Hero','TVS', 'Suzuki', 'BMW','Ather'],
+  },
   {
     name: "Electronics & Appliances",
     icon: <ElectronicIcon />,
@@ -28,13 +34,18 @@ export const categoriesContent = [
   {
     name: "Fashion",
     icon: <FashionIcon />,
+    type: ["Men", "Women", "Kids"],
+
   },
   {
     name: "Pets",
     icon: <PetsIcon />,
+    type: ["Dog", "Cat", "Bird","Other"],
   },
   {
     name: "Services",
     icon: <ServicesIcon />,
-  },
+    type: ["Car Wash", "Car Repair", "Car Insurance", "Car Rental", "Car Cleaning"],
+  }
+  ,
 ];

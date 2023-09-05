@@ -73,3 +73,58 @@ table tr td span {
 .centerDiv table tr:hover i {
   fill: var(--blackText);
 }
+
+.addProduct i {
+  fill: var(--blackText);
+}
+
+.addProduct h4 , .addProduct h5 , .addProduct label {
+  font-weight: bold;
+}
+
+.addProduct .form input{
+  padding: .50rem;
+  height: 3rem;
+  border-radius: 5px;
+  border:1px solid var(--blackText);
+}
+
+.addProduct .form input:focus, .form textarea:focus{
+  outline: none;
+  border:2px solid var(--brandAccentDark);
+  box-shadow: none;
+}
+
+.addProduct .form select {
+  height: 3rem;
+  border-radius: 5px;
+  border:1px solid var(--blackText);
+  color:var(--primaryBase);
+}
+
+.addProduct .form select:focus {
+  border:2px solid var(--brandAccentDark);
+
+}
+
+.form select option{
+  color : var(--primaryBase)
+}
+
+.form input::-webkit-outer-spin-button,
+.form input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.form input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.form input[type=submit] {
+  background-color: var(--brandPrimary) !important;
+}
+
+.form input[type=submit]:focus{
+  outline: none;
+}
