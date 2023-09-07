@@ -30,6 +30,7 @@ export const categoriesContent = [
   {
     name: "Furniture",
     icon: <FurnitureIcon />,
+    type:['Tables', 'Chairs', 'Couches', 'Beds' ]
   },
   {
     name: "Fashion",
