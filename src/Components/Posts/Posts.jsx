@@ -84,7 +84,7 @@ function Posts() {
                 <span className="kilometer">{product.name}</span>
                 <p className="name">{product.description}</p>
               </div>
-              <div className="d-flex flex-row justify-content-between">
+              <div className="bottom d-flex flex-row justify-content-between">
                 <div className="date">
                   <span>{product.location}</span>
                 </div>

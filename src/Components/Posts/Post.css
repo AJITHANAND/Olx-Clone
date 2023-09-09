@@ -37,10 +37,16 @@
   max-width: 222px;
   width: 222px;
   height: 270px;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
   cursor: pointer;
 }
-
+.card .content{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
 .card .favorite {
   display: flex;
   justify-content: flex-end;
@@ -61,15 +67,26 @@
   text-align: center;
 }
 .card .content .rate {
-  margin-top: 10px;
+  /* margin-top: 10px; */
   font-size: larger;
   font-weight: bold;
+  margin-bottom: 0;
 }
 .card .content .kilometer {
   font-size: medium;
 }
 .card .content .name {
   font-size: small;
+  display: -webkit-box;
+  
+  -webkit-line-clamp: 1; /* lines to show */
+  -webkit-box-orient: vertical;
+
+  
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 3em; 
+  line-height: 1.5em; 
 }
 .card .date {
   /* display: flex;
@@ -85,4 +102,8 @@
 .recommendations .heading span {
   font-size: 24px;
   color: #002f34;
+}
+
+.bottom{
+  
 }

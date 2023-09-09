@@ -18,6 +18,7 @@
   height: 75vh;
   aspect-ratio: auto;
   cursor: pointer;
+  mix-blend-mode: multiply;
 }
 
 .viewParentDiv .rightSection {

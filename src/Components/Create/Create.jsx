@@ -19,6 +19,7 @@ const Create = () => {
     brand: useRef(""),
     type: useRef(""),
     price: useRef(""),
+    location: useRef(""),
     image: useRef(null),
   };
   const [err, setErr] = useState(null);
@@ -31,7 +32,6 @@ const Create = () => {
       setErr(null);
     }
   };
-
   const handleSubmit = (e) => {
     if (!user) {
       alert("Please login to your account");
@@ -54,12 +54,13 @@ const Create = () => {
         // console.log(response);
         getDownloadURL(response.ref).then((downloadURL) => {
           const productData = {
-            userName: user.name,
+            userName: user.displayName,
             userId : user.uid,
             name: product.name.current.value,
             category: category.name,
             description: product.description.current.value,
             price: product.price.current.value,
+            location: product.location.current.value,
             image: downloadURL,
             createdAt : new Date().toDateString()
           };
@@ -185,7 +186,8 @@ const Create = () => {
                   name="price"
                   ref={product.price}
                 />
-
+                <label htmlFor="location">Location</label>
+                <input type="text" name="location" id="location" ref={product.location}  placeholder="location of your product"/>
                 <label className="form-label" htmlFor="productImage">
                   Image
                 </label>
