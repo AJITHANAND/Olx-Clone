@@ -4,6 +4,7 @@
   position: fixed;
   width: 100%;
   z-index: 999;
+  border-bottom: 0.15rem solid white;
 }
 
 .headerChildDiv {

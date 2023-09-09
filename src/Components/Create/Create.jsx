@@ -54,6 +54,7 @@ const Create = () => {
         // console.log(response);
         getDownloadURL(response.ref).then((downloadURL) => {
           const productData = {
+            userName: user.name,
             userId : user.uid,
             name: product.name.current.value,
             category: category.name,

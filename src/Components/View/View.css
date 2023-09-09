@@ -1,14 +1,23 @@
 .viewParentDiv {
   padding-top: 4em;
   display: flex;
+  background-color: var(--background2);
+  height: 95dvh;
 }
 .viewParentDiv .imageShowDiv {
   padding: 16px;
   width: 70vw;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
 }
 .viewParentDiv .imageShowDiv img {
-  width: 65vw;
-  height: 85vh;
+  width: auto;
+  height: 75vh;
+  aspect-ratio: auto;
+  cursor: pointer;
 }
 
 .viewParentDiv .rightSection {
@@ -20,7 +29,7 @@
 .viewParentDiv .rightSection .productDetails :first-child {
   font-weight: 700;
   margin-bottom: 8px;
-  color: #002f34;
+  color: var(--primaryText);
   font-size: 34px;
   line-height: 32px;
   margin-bottom: 20px;
