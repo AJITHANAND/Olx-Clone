@@ -72,9 +72,10 @@
   font-size: small;
 }
 .card .date {
-  display: flex;
-  justify-content: flex-end;
+  /* display: flex;
+  justify-content: flex-end; */
   font-size: small;
+  /* padding:4px; */
 }
 
 .recommendations {

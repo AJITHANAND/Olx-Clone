@@ -11,8 +11,9 @@ function View() {
   const navigate = useNavigate();
   const [userDetails, setUserDetails] = useState();
   const { postDetails, setPostDetails } = useContext(PostDetailsContext);
-  const [open,setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (!postDetails || Object.keys(postDetails).length === 0) {
       navigate(-1);
     } else {
@@ -29,8 +30,8 @@ function View() {
     <div className="viewParentDiv">
       <div className="imageShowDiv">
         <Lightbox
-          open ={open}
-          close={()=>setOpen(false)}
+          open={open}
+          close={() => setOpen(false)}
           slides={[
             {
               src: postDetails.image,
@@ -38,7 +39,7 @@ function View() {
             },
           ]}
         />
-        <img src={postDetails.image} alt="" onClick={()=>setOpen(true)} />
+        <img src={postDetails.image} alt="" onClick={() => setOpen(true)} />
       </div>
       <div className="rightSection">
         <div className="productDetails">

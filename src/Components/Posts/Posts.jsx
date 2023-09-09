@@ -25,7 +25,7 @@ function Posts() {
 
   return (
     <div className="postParentDiv">
-      <div className="moreView">
+      {/* <div className="moreView">
         <div className="heading">
           <span>Quick Menu</span>
           <span>View more</span>
@@ -57,28 +57,43 @@ function Posts() {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
+
       <div className="recommendations">
         <div className="heading">
           <span>Fresh recommendations</span>
         </div>
         <div className="cards">
-          <div className="card">
-            <div className="favorite">
-              <Heart></Heart>
+          {products.map((product, index) => (
+            <div
+              className="card p-2"
+              onClick={() => {
+                setPostDetails(product);
+                navigate("/view");
+              }}
+              key={index}
+            >
+              <div className="favorite">
+                <Heart></Heart>
+              </div>
+              <div className="image">
+                <img src={product.image} alt="" />
+              </div>
+              <div className="content">
+                <p className="rate">&#x20B9; {product.price}</p>
+                <span className="kilometer">{product.name}</span>
+                <p className="name">{product.description}</p>
+              </div>
+              <div className="d-flex flex-row justify-content-between">
+                <div className="date">
+                  <span>{product.location}</span>
+                </div>
+                <div className="date">
+                  <span>{product.createdAt}</span>
+                </div>
+              </div>
             </div>
-            <div className="image">
-              <img src="../../../Images/R15V3.jpg" alt="" />
-            </div>
-            <div className="content">
-              <p className="rate">&#x20B9; 250000</p>
-              <span className="kilometer">Two Wheeler</span>
-              <p className="name"> YAMAHA R15V3</p>
-            </div>
-            <div className="date">
-              <span>10/5/2021</span>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>
