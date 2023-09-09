@@ -24,7 +24,7 @@ function Posts() {
   }, []);
 
   return (
-    <div className="postParentDiv">
+    <div className="postParentDiv d-flex align-items-center justify-content-center">
       {/* <div className="moreView">
         <div className="heading">
           <span>Quick Menu</span>

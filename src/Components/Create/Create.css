@@ -118,6 +118,7 @@ table tr td span {
 }
 
 .form input[type=number] {
+  appearance: textfield;
   -moz-appearance: textfield;
 }
 

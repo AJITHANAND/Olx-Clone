@@ -5,22 +5,30 @@
 }
 .bannerParentDiv .bannerChildDiv .menuBar {
   display: flex;
-  padding: 10px 16px 10px 16px;
+  flex-direction: row;
 }
 
-.bannerParentDiv .bannerChildDiv .menuBar span {
+.bannerParentDiv .bannerChildDiv .menuBar .categoryMenu {
+  padding: 10px;
 }
 
 .bannerParentDiv .bannerChildDiv .menuBar .categoryMenu span {
   margin-right: 16px;
   font-weight: bolder;
+  
 }
 
 .bannerParentDiv .bannerChildDiv .menuBar .otherQuickOptions {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .bannerParentDiv .bannerChildDiv .menuBar .otherQuickOptions span {
   padding: 10px;
   font-size: small;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .bannerChildDiv .banner {

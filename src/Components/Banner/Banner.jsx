@@ -6,7 +6,7 @@ function Banner() {
   return (
     <div className="bannerParentDiv">
       <div className="bannerChildDiv">
-        <div className="menuBar">
+        <div className="menuBar d-flex align-items-center justify-content-center">
           <div className="categoryMenu">
             <span>ALL CATEGORIES</span>
             <Arrow></Arrow> 
