@@ -1,4 +1,4 @@
-import React, { useState,  useContext, useRef, } from "react";
+import  { useState,  useContext, useRef, } from "react";
 import "./Create.css";
 import { categoriesContent } from "../../Constants/categories";
 import BackArrow from "../../assets/BackArrow";
@@ -33,6 +33,7 @@ const Create = () => {
     }
   };
   const handleSubmit = (e) => {
+    e.preventDefault();
     if (!user) {
       alert("Please login to your account");
       return;
