@@ -15,6 +15,7 @@
 }
 
 .placeSearch {
+  outline: none;
   width: 16em;
   height: 48px;
   display: flex;
@@ -59,6 +60,7 @@
   outline-color: transparent;
   width: 100%;
   align-items: center;
+  outline: none;
 }
 
 .productSearch .searchAction {

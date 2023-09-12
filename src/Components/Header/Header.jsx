@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import  { useContext, useEffect, useState } from "react";
 import "./Header.css";
 import OlxLogo from "../../assets/OlxLogo";
 import Search from "../../assets/Search";
@@ -12,31 +12,41 @@ import HeaderModal from "../Modal/Modal";
 import { useNavigate } from "react-router-dom";
 import { SearchContext } from "../../Contexts/SearchContext";
 import { categoriesContent } from "../../Constants/categories";
+import CloseButton from "../../assets/CloseButton";
+
 function Header() {
-  const [showModal, setShowModal] = React.useState(false);
+  const [showModal, setShowModal] = useState(false);
   const { user } = useContext(AuthContext);
   const { setSearch } = useContext(SearchContext);
-  const searchTerm = useRef();
+  const [searchInput, setSearchInput] = useState("");
+  const [suggestions, setSuggestions] = useState(false);
+  const [terms, setTerms] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const temp = categoriesContent.flatMap((category) => [
+      category.name,
+      ...(category.brand || []),
+      ...(category.type || []),
+    ]);
+    setTerms(temp);
+  }, []);
+
+  useEffect(() => {
+    setSuggestions(searchInput.length > 0);
+  }, [searchInput]);
+
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
-  const [terms,setTerm] = useState([]);
-  const navigate = useNavigate();
+
   const submitSearch = () => {
-    setSearch(searchTerm.current.value);
+    setSearch(searchInput);
   };
-  useEffect(() => {
-    const Temp = [];
-    categoriesContent.map((category) => {
-      Temp.push(category.name);
-      category.brand?.map((brandName) => {
-        Temp.push(brandName);
-      });
-      category.type?.map((typeName) => {
-        Temp.push(typeName);
-      });
-    });
-    setTerm(Temp);
-  },[searchTerm]);
+
+  const clearInput = () => {
+    setSearchInput("");
+    setSuggestions(false);
+  };
 
   return (
     <div className="headerParentDiv">
@@ -57,17 +67,23 @@ function Header() {
               type="text"
               name="productSearch"
               id="productSearch"
-              placeholder="Find car,mobile phone and more..."
-              ref={searchTerm}
+              placeholder="Find car, mobile phone and more..."
               list="terms"
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
             />
-            <datalist id="terms">
-              {
-                terms.map(term => (
-                   <option key={term} value={term}></option>
-                ))
-              }
-            </datalist>
+            {suggestions && (
+              <datalist id="terms">
+                {terms.map((term) => (
+                  <option key={term} value={term}></option>
+                ))}
+              </datalist>
+            )}
+            {searchInput.length > 0 && (
+              <button style={{all:"unset"}} onClick={clearInput}>
+                <CloseButton default_width="15px" default_height="15px" />
+              </button>
+            )}
           </div>
           <div className="searchAction" onClick={submitSearch} role="button">
             <Search color="#ffffff"></Search>

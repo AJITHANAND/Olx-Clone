@@ -1,10 +1,8 @@
-import React from "react";
-
-function CloseButton() {
+function CloseButton({default_width="25px", default_height="25px"}) {
   return (
     <svg
-      width="25px"
-      height="25px"
+      width={default_width}
+      height={default_height}
       viewBox="0 0 1024 1024"
       data-aut-id="icon"
 
