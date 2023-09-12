@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "./Header.css";
 import OlxLogo from "../../assets/OlxLogo";
 import Search from "../../assets/Search";
@@ -11,18 +11,32 @@ import Login from "../Login/Login";
 import HeaderModal from "../Modal/Modal";
 import { useNavigate } from "react-router-dom";
 import { SearchContext } from "../../Contexts/SearchContext";
-
+import { categoriesContent } from "../../Constants/categories";
 function Header() {
   const [showModal, setShowModal] = React.useState(false);
   const { user } = useContext(AuthContext);
-  const {setSearch} = useContext(SearchContext);
+  const { setSearch } = useContext(SearchContext);
   const searchTerm = useRef();
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
+  const [terms,setTerm] = useState([]);
   const navigate = useNavigate();
-  const submitSearch =() =>{
+  const submitSearch = () => {
     setSearch(searchTerm.current.value);
-  }
+  };
+  useEffect(() => {
+    const Temp = [];
+    categoriesContent.map((category) => {
+      Temp.push(category.name);
+      category.brand?.map((brandName) => {
+        Temp.push(brandName);
+      });
+      category.type?.map((typeName) => {
+        Temp.push(typeName);
+      });
+    });
+    setTerm(Temp);
+  },[searchTerm]);
 
   return (
     <div className="headerParentDiv">
@@ -45,7 +59,15 @@ function Header() {
               id="productSearch"
               placeholder="Find car,mobile phone and more..."
               ref={searchTerm}
+              list="terms"
             />
+            <datalist id="terms">
+              {
+                terms.map(term => (
+                   <option key={term} value={term}></option>
+                ))
+              }
+            </datalist>
           </div>
           <div className="searchAction" onClick={submitSearch} role="button">
             <Search color="#ffffff"></Search>
