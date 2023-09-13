@@ -68,7 +68,7 @@ function Posts() {
             <span>{search} products</span>
             <span onClick={() => setSearch("")}>close</span>
           </div>
-          <div className="cards">
+          <div className="cards grid">
             {searchProduct &&
               searchProduct.map((product, index) => (
                 <div
@@ -109,7 +109,7 @@ function Posts() {
         <div className="heading">
           <span>Fresh recommendations</span>
         </div>
-        <div className="cards">
+        <div className="cards grid">
           {products.map((product, index) => (
             <div
               className="card p-2"

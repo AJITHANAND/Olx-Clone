@@ -26,7 +26,7 @@
 }
 
 .moreView .cards {
-  display: flex;
+  display: gird;
   white-space: nowrap;
   overflow-x: scroll;
   overflow-y: hidden;
@@ -115,4 +115,10 @@
 .recommendations .heading span {
   font-size: 24px;
   color: var(--primaryBase);
+}
+
+.postParentDiv .grid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
 }
