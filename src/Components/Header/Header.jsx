@@ -1,4 +1,4 @@
-import  { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./Header.css";
 import OlxLogo from "../../assets/OlxLogo";
 import Search from "../../assets/Search";
@@ -13,6 +13,8 @@ import { useNavigate } from "react-router-dom";
 import { SearchContext } from "../../Contexts/SearchContext";
 import { categoriesContent } from "../../Constants/categories";
 import CloseButton from "../../assets/CloseButton";
+import { getLocations } from "../../firebase/db_functions";
+import Select from "react-select";
 
 function Header() {
   const [showModal, setShowModal] = useState(false);
@@ -22,7 +24,7 @@ function Header() {
   const [suggestions, setSuggestions] = useState(false);
   const [terms, setTerms] = useState([]);
   const navigate = useNavigate();
-
+  const [places, setPlaces] = useState([]);
   useEffect(() => {
     const temp = categoriesContent.flatMap((category) => [
       category.name,
@@ -30,8 +32,8 @@ function Header() {
       ...(category.type || []),
     ]);
     setTerms(temp);
+    getLocations().then((locations) =>setPlaces(locations));
   }, []);
-
   useEffect(() => {
     setSuggestions(searchInput.length > 0);
   }, [searchInput]);
@@ -42,12 +44,20 @@ function Header() {
   const submitSearch = () => {
     setSearch(searchInput);
   };
-
+  const handlePlaceChange = (selected)=>{
+    setSearch(selected.value);
+  }
   const clearInput = () => {
     setSearchInput("");
     setSuggestions(false);
   };
-
+  const customReactSelectStyle = {
+    control: (base) => ({
+      ...base,
+      border: 0,
+      boxShadow: "none",
+    }),
+  };
   return (
     <div className="headerParentDiv">
       <div className="headerChildDiv">
@@ -58,8 +68,9 @@ function Header() {
         </div>
         <div className="placeSearch">
           <Search></Search>
-          <input id="search" name="search" type="text" />
-          <Arrow></Arrow>
+          <div className="w-100">
+            <Select styles={customReactSelectStyle} onChange={handlePlaceChange} placeholder="Search Places" options={places} />
+          </div>
         </div>
         <div className="productSearch">
           <div className="input">
@@ -80,7 +91,7 @@ function Header() {
               </datalist>
             )}
             {searchInput.length > 0 && (
-              <button style={{all:"unset"}} onClick={clearInput}>
+              <button style={{ all: "unset" }} onClick={clearInput}>
                 <CloseButton default_width="15px" default_height="15px" />
               </button>
             )}

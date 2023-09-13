@@ -8,6 +8,7 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { productCollection } from "../../firebase/constants";
 import { addDoc } from "firebase/firestore";
 import {useNavigate} from "react-router-dom"
+import { addLocation } from "../../firebase/db_functions";
 const Create = () => {
   const [category, SetCategory] = useState({});
   const { Firebase } = useContext(FirebaseContext);
@@ -72,7 +73,7 @@ const Create = () => {
             productData.type = product.type.current.value;
           }
           console.log(productData);
-          
+          addLocation(productData.location);
           addDoc(productCollection, productData)
             .then(() => {
               alert("Product successfully uploaded");
@@ -87,7 +88,6 @@ const Create = () => {
       })
       .catch((error) => console.log(error));
   };
-
   return (
     <>
       <div className="container centerDiv border-0">
