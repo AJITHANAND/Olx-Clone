@@ -37,17 +37,19 @@
 }
 
 .viewParentDiv .rightSection .productDetails {
-  border: 1px solid black;
+  border: 1px solid var(--blackDividers);
   padding: 6px;
   border-radius: 6px;
   margin-bottom: 2em;
   width: 100%;
+  background-color: white;
 }
 
 .viewParentDiv .rightSection .contactDetails {
-  border: 1px solid black;
+  border: 1px solid var(--blackDividers);
   padding: 6px;
   border-radius: 6px;
+  background-color: white;
 }
 
 .viewParentDiv .rightSection .contactDetails :first-child {

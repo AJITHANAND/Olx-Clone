@@ -44,13 +44,12 @@ function View() {
       <div className="rightSection">
         <div className="productDetails">
           <p>&#x20B9; {postDetails.price} </p>
-          <span>{postDetails.name}</span>
+          <span style={{fontWeight:"bold"}}>{postDetails.name}</span>
           <p>{postDetails.description}</p>
           <span>{postDetails.createdAt}</span>
         </div>
-        <div className="contactDetails">
-          <p>Seller details</p>
-          <p>{userDetails && userDetails.username}</p>
+        <div className="contactDetails d-flex flex-column justify-content-center align-items-center  ">
+          <p >{userDetails && userDetails.username}</p>
           <p>{userDetails && userDetails.phone}</p>
         </div>
       </div>
