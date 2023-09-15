@@ -15,7 +15,6 @@ function Posts() {
   const { setPostDetails } = useContext(PostDetailsContext);
   const navigate = useNavigate();
   const [searchProduct, setSearchProduct] = useState([]);
-  setSearch("Kannur");
   useEffect(() => {
     if (search) {
       setLoadingSearch(true);
