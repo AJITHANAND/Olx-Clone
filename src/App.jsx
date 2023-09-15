@@ -13,21 +13,18 @@ function App() {
   const { user, setUser } = useContext(AuthContext);
   const { Firebase } = useContext(FirebaseContext);
   const basename = import.meta.env.MODE === 'production' ? '/Olx-Clone/' : '/';
-<Router basename={basename}>
-  ...
-</Router>
 
   useEffect(() => {
     const auth = getAuth(Firebase);
     onAuthStateChanged(auth, (user) => {
       setUser(user);
     });
-    // console.log(user);
+    console.log(user);
   }, [user]);
 
   return (
     <div>
-      <Router basename="/Olx-Clone/">
+      <Router basename={basename} >
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/signup" element={<Signup />} />
