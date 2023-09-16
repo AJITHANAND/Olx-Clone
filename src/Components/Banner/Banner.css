@@ -1,9 +1,11 @@
 .bannerParentDiv {
   padding-top: 4em;
 }
-.bannerParentDiv .bannerChildDiv {
-}
+/* .bannerParentDiv .bannerChildDiv {
+} */
+
 .bannerParentDiv .bannerChildDiv .menuBar {
+  padding: 1em;
   display: flex;
   flex-direction: row;
 }
@@ -46,4 +48,41 @@
   .bannerChildDiv .banner {
     position: relative;
   }
+}
+
+.bannerParentDiv .mobileBanner{
+  display: flex;
+  flex-direction: column;
+  overflow-x:scroll;
+}
+
+.mobileBanner .mobileBannerHeading{
+  font-weight: 400;
+}
+.mobileBanner .mobileBannerItems{
+  width: fit-content;
+  display: flex;
+  flex-direction: row !important;
+}
+
+.mobileBannerItems .itemBox{
+  width: auto;
+  /* height: 5em; */
+  display: flex;
+  flex-direction:column;
+  margin-right: 1em;
+  text-align: center;
+}
+.itemBox p{
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* lines to show */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 3em; 
+  line-height: 1.5em; 
+}
+.itemBox img {
+  width: 3em;
+  aspect-ratio:auto ;
 }
