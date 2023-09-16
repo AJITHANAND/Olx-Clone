@@ -107,9 +107,11 @@ function Footer() {
           )}
         </div>
       </div>
-      <div className="footer">
-        <p>Other Countries Pakistan - South Africa - Indonesia</p>
-        <p>Free Classifieds in India. © 2006-{date.getUTCFullYear()} OLX</p>
+      <div className="footer  d-flex flex-row">
+        {
+          isMobile ? undefined : <p>Help - Sitemap</p>
+        }
+        <p>All rights reserved © 2006-{date.getUTCFullYear()} OLX</p>
       </div>
     </div>
   );

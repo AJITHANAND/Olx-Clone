@@ -53,3 +53,8 @@
 
 }
 
+.footerParentDiv .footer {
+  font-size: small;
+  line-height:18px;
+  color:var(--whiteText)
+}
