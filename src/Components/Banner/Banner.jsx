@@ -22,7 +22,7 @@ function Banner() {
         <div className="banner">
           <img
             // src="../../../Images/banner copy.png"
-            src="../../../Images/banner.jpg"
+            src="https://raw.githubusercontent.com/AJITHANAND/Olx-Clone/deploy/static/images/banner.jpg"
             alt=""
           />
         </div>
