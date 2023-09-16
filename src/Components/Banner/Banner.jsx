@@ -1,14 +1,26 @@
 /* eslint-disable no-unused-vars */
 import "./Banner.css";
 import Arrow from "../../assets/Arrow";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { SearchContext } from "../../Contexts/SearchContext";
 import { categoriesContent } from "../../Constants/categories";
 function Banner() {
   const { setSearch } = useContext(SearchContext);
 
-  const isMobile = window.innerWidth < 768;
-
+  const [isMobile,setIsMobile] = useState(window.innerWidth < 768);
+  useEffect(()=>{
+    const handleResize = () =>{
+      if(window.innerWidth < 768){
+        setIsMobile(true);
+      }else{
+        setIsMobile(false);
+      }
+    }
+    window.addEventListener("resize",handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  },[])
   return (
     <div className="bannerParentDiv">
       <div className="bannerChildDiv">

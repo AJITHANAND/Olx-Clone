@@ -24,6 +24,7 @@
   border: 2px solid #002f34;
   border-radius: 4px;
   background-color: white;
+  line-height: normal;
 }
 
 .placeSearch ::selection {
@@ -161,7 +162,7 @@
   margin-left: 5px;
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 768px) {
   .placeSearch,
   .productSearch,
   .sellMenu {
