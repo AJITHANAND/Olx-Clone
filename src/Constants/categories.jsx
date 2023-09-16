@@ -6,12 +6,18 @@ import FurnitureIcon from "../assets/icons/FurnitureIcon";
 import FashionIcon from "../assets/icons/FashionIcon";
 import PetsIcon from "../assets/icons/PetsIcon";
 import ServicesIcon from "../assets/icons/ServicesIcon";
+import HouseIcon from "../assets/icons/HouseIcon";
 
 export const categoriesContent = [
   {
     name: "Cars",
     icon: <CarIcon />,
     brand: ["Toyota", "Honda", "Ford", "BMW", "Audi", "Tata", "Maruti-Suzuki"],
+  },
+  {
+    name:'Properties',
+    icon: <HouseIcon />,
+    type:["For Sale: Houses & Apartments","For Rent: Houses & Apartments","Land","PG","Guest House"]
   },
   {
     name: "Mobiles",
