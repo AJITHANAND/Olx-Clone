@@ -138,6 +138,7 @@ function Posts() {
                     </div>
                     <div className="image">
                       <img
+                        loading="lazy"
                         style={{ aspectRatio: "auto" }}
                         src={product.image}
                         alt=""
@@ -219,7 +220,7 @@ function Posts() {
                     <Heart></Heart>
                   </div>
                   <div className="image">
-                    <img src={product.image} alt="" />
+                    <img loading="lazy" src={product.image} alt="" />
                   </div>
                   <div className="content">
                     <p className="rate">&#x20B9; {product.price}</p>

@@ -25,6 +25,21 @@ function Header() {
   const [terms, setTerms] = useState([]);
   const navigate = useNavigate();
   const [places, setPlaces] = useState([]);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setIsMobile(true);
+      } else {
+        setIsMobile(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+  console.log(isMobile);
   useEffect(() => {
     const temp = categoriesContent.flatMap((category) => [
       category.name,
@@ -32,7 +47,7 @@ function Header() {
       ...(category.type || []),
     ]);
     setTerms(temp);
-    getLocations().then((locations) =>setPlaces(locations));
+    getLocations().then((locations) => setPlaces(locations));
   }, []);
   useEffect(() => {
     setSuggestions(searchInput.length > 0);
@@ -44,9 +59,9 @@ function Header() {
   const submitSearch = () => {
     setSearch(searchInput);
   };
-  const handlePlaceChange = (selected)=>{
+  const handlePlaceChange = (selected) => {
     setSearch(selected.value);
-  }
+  };
   const clearInput = () => {
     setSearchInput("");
     setSuggestions(false);
@@ -61,72 +76,137 @@ function Header() {
   return (
     <div className="headerParentDiv">
       <div className="headerChildDiv">
-        <div className="brandName">
-          <i onClick={() => navigate("/")}>
-            <OlxLogo></OlxLogo>
-          </i>
-        </div>
-        <div className="placeSearch">
-          <Search></Search>
-          <div className="w-100">
-            <Select styles={customReactSelectStyle} onChange={handlePlaceChange} placeholder="Search Places" options={places} />
+        {isMobile ? (
+          <div className="d-flex w-100 flex-column">
+            <div className="brandName  d-flex flex-row justify-content-between">
+              <i onClick={() => navigate("/")}>
+                <OlxLogo></OlxLogo>
+              </i>
+              <div className="loginPage">
+                {
+                  user ? <Logout />:
+                  <span onClick={handleShowModal}>Login</span>
+                }
+              </div>
+            </div>
+            <div className="w-100">
+              <div 
+              className="w-100"
+              style={{
+                width:"99%",
+                border:"2px solid var(--blackText)",
+                height:"40px",
+                borderRadius:"5px",
+              }}
+              >
+                <Search color="rgba(0,47,52,1)" />
+                <input
+                  style={{border:"none",}}
+                  type="text"
+                  name="productSearch"
+                  id="productSearch"
+                  placeholder="Find car, mobile phone and more..."
+                  list="terms"
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)}
+                />
+                {suggestions && (
+                  <datalist id="terms">
+                    {terms.map((term) => (
+                      <option key={term} value={term}></option>
+                    ))}
+                  </datalist>
+                )}
+                {searchInput.length > 0 && (
+                  <button style={{ all: "unset" }} onClick={clearInput}>
+                    <CloseButton default_width="15px" default_height="15px" />
+                  </button>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="productSearch">
-          <div className="input">
-            <input
-              type="text"
-              name="productSearch"
-              id="productSearch"
-              placeholder="Find car, mobile phone and more..."
-              list="terms"
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-            />
-            {suggestions && (
-              <datalist id="terms">
-                {terms.map((term) => (
-                  <option key={term} value={term}></option>
-                ))}
-              </datalist>
-            )}
-            {searchInput.length > 0 && (
-              <button style={{ all: "unset" }} onClick={clearInput}>
-                <CloseButton default_width="15px" default_height="15px" />
-              </button>
-            )}
-          </div>
-          <div className="searchAction" onClick={submitSearch} role="button">
-            <Search color="#ffffff"></Search>
-          </div>
-        </div>
-        <div className="language">
-          <span> ENGLISH </span>
-          <Arrow></Arrow>
-        </div>
+        ) : (
+          <>
+            <div className="brandName">
+              <i onClick={() => navigate("/")}>
+                <OlxLogo></OlxLogo>
+              </i>
+            </div>
+            <div className="placeSearch">
+              <Search></Search>
+              <div className="w-100">
+                <Select
+                  styles={customReactSelectStyle}
+                  onChange={handlePlaceChange}
+                  placeholder="Search Places"
+                  options={places}
+                />
+              </div>
+            </div>
+            <div className="productSearch">
+              <div className="input">
+                <input
+                  type="text"
+                  name="productSearch"
+                  id="productSearch"
+                  placeholder="Find car, mobile phone and more..."
+                  list="terms"
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)}
+                />
+                {suggestions && (
+                  <datalist id="terms">
+                    {terms.map((term) => (
+                      <option key={term} value={term}></option>
+                    ))}
+                  </datalist>
+                )}
+                {searchInput.length > 0 && (
+                  <button style={{ all: "unset" }} onClick={clearInput}>
+                    <CloseButton default_width="15px" default_height="15px" />
+                  </button>
+                )}
+              </div>
+              <div
+                className="searchAction"
+                onClick={submitSearch}
+                role="button"
+              >
+                <Search color="#ffffff"></Search>
+              </div>
+            </div>
+            <div className="language">
+              <span> ENGLISH </span>
+              <Arrow></Arrow>
+            </div>
 
-        <div className="loginPage">
-          {user ? (
-            `Welcome ${user.displayName}`
-          ) : (
-            <span onClick={handleShowModal}>Login</span>
-          )}
-          <hr />
-        </div>
-        {user && (
-          <div className="loginPage">
-            <Logout />
-          </div>
+            <div className="loginPage">
+              {user ? (
+                `Welcome ${user.displayName}`
+              ) : (
+                <span onClick={handleShowModal}>Login</span>
+              )}
+              <hr />
+            </div>
+            {user && (
+              <div className="loginPage">
+                <Logout />
+              </div>
+            )}
+            <div className="sellMenu">
+              <SellButton></SellButton>
+              <div
+                className="sellMenuContent"
+                onClick={() => navigate("/post")}
+              >
+                <i>
+                  <SellButtonPlus></SellButtonPlus>
+                </i>
+                <span>SELL</span>
+              </div>
+            </div>
+          </>
         )}
-        <div className="sellMenu">
-          <SellButton></SellButton>
-          <div className="sellMenuContent" onClick={() => navigate("/post")}>
-            <i>
-              <SellButtonPlus></SellButtonPlus>
-            </i>
-            <span>SELL</span>
-          </div>
-        </div>
       </div>
       <HeaderModal
         showModal={showModal}

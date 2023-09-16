@@ -39,7 +39,7 @@ function Banner() {
                   >
                     <a >
                       <picture>
-                        <img src={category.mobileIcon} alt="icon" />
+                        <img loading="lazy" src={category.mobileIcon} alt="icon" />
                       </picture>
                     </a>
                     <p>{category.name}</p>
@@ -77,6 +77,7 @@ function Banner() {
             </div>
             <div className="banner">
               <img
+                loading="lazy"
                 // src="../../../Images/banner copy.png"
                 src="https://raw.githubusercontent.com/AJITHANAND/Olx-Clone/deploy/static/images/banner.jpg"
                 alt=""

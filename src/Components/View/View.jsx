@@ -15,7 +15,7 @@ function View() {
   useEffect(() => {
     window.scrollTo(0, 0);
     if (!postDetails || Object.keys(postDetails).length === 0) {
-      navigate(-1);
+      navigate("/");
     } else {
       const uid = postDetails.userId;
       const q = query(userCollection, where("uid", "==", uid));
@@ -39,7 +39,7 @@ function View() {
             },
           ]}
         />
-        <img src={postDetails.image} alt="" onClick={() => setOpen(true)} />
+        <img loading="lazy" src={postDetails.image} alt="" onClick={() => setOpen(true)} />
       </div>
       <div className="rightSection">
         <div className="productDetails">
