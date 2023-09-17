@@ -15,6 +15,26 @@ function Posts() {
   const { setPostDetails } = useContext(PostDetailsContext);
   const navigate = useNavigate();
   const [searchProduct, setSearchProduct] = useState([]);
+
+  useEffect(() => {
+    getDocs(productCollection)
+      .then((docs) => {
+        const productsData = [];
+        docs.forEach((doc) => {
+          productsData.push(doc.data());
+        });
+        setProducts(productsData);
+        setLoadingDefault(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching products:", error);
+      });
+  }, []);
+
+  useEffect(()=>{
+    console.log(products);
+  })
+
   useEffect(() => {
     if (search) {
       setLoadingSearch(true);
@@ -53,21 +73,7 @@ function Posts() {
     }
     console.log(searchProduct);
   }, [search]);
-
-  useEffect(() => {
-    getDocs(productCollection)
-      .then((docs) => {
-        const productsData = [];
-        docs.forEach((doc) => {
-          productsData.push(doc.data());
-        });
-        setProducts(productsData);
-        setLoadingDefault(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching products:", error);
-      });
-  }, []);
+  
 
   return (
     <div className="postParentDiv d-flex align-items-center justify-content-center flex-column">
