@@ -14,11 +14,11 @@
   background-color: transparent;
 }
 .viewParentDiv .imageShowDiv img {
-  width: auto;
-  height: 75vh;
-  aspect-ratio: auto;
+  width: 100%;
+  aspect-ratio: 16/9;
   cursor: pointer;
   mix-blend-mode: multiply;
+  object-fit: contain;
 }
 
 .viewParentDiv .rightSection {

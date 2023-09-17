@@ -1,16 +1,18 @@
-import React, { useEffect, useState, useContext } from "react";
+import  { useEffect, useState, useContext } from "react";
 import "./View.css";
 import { PostDetailsContext } from "../../Contexts/PostContext";
-import { getDocs, query, where, doc } from "firebase/firestore";
+import { getDocs, query, where } from "firebase/firestore";
 import { userCollection } from "../../firebase/constants";
 import { useNavigate } from "react-router-dom";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
-
+import UserIcon from "../../assets/icons/UserIcon";
+import PhoneIcon from "../../assets/icons/PhoneIcon";
+import LocationIcon from "../../assets/icons/LocationIcon"
 function View() {
   const navigate = useNavigate();
   const [userDetails, setUserDetails] = useState();
-  const { postDetails, setPostDetails } = useContext(PostDetailsContext);
+  const { postDetails } = useContext(PostDetailsContext);
   const [open, setOpen] = useState(false);
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -25,10 +27,10 @@ function View() {
         });
       });
     }
-  }, [postDetails]);
+  }, [postDetails,navigate]);
   return (
-    <div className="viewParentDiv">
-      <div className="imageShowDiv">
+    <div className="viewParentDiv d-flex row m-auto">
+      <div className="imageShowDiv col-12 col-md-7 m-auto">
         <Lightbox
           open={open}
           close={() => setOpen(false)}
@@ -41,16 +43,17 @@ function View() {
         />
         <img loading="lazy" src={postDetails.image} alt="" onClick={() => setOpen(true)} />
       </div>
-      <div className="rightSection">
+      <div className="rightSection col-12 col-md-4 m-auto">
         <div className="productDetails">
           <p>&#x20B9; {postDetails.price} </p>
           <span style={{fontWeight:"bold"}}>{postDetails.name}</span>
           <p>{postDetails.description}</p>
           <span>{postDetails.createdAt}</span>
         </div>
-        <div className="contactDetails d-flex flex-column justify-content-center align-items-center  ">
-          <p >{userDetails && userDetails.username}</p>
-          <p>{userDetails && userDetails.phone}</p>
+        <div className="contactDetails">
+          <p className="m-0" ><i><UserIcon width="30px" /></i> {postDetails.seller_name}</p>
+          <p className="m-0" ><i> <PhoneIcon width="30px" /> </i> {userDetails && userDetails.phone}</p>
+          <p className="m-0"><i> <LocationIcon width="30px"/></i>{postDetails.location}</p>
         </div>
       </div>
     </div>
