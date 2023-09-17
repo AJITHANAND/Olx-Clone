@@ -174,8 +174,14 @@ body{
     font-family: var(--customLTRFont);
     color: var(--primaryBase);
     overflow-x: scroll;
+    scrollbar-gutter: stable;
+
 }
 
 ::-webkit-scrollbar{
     display: none;
+}
+:hover:-webkit-scrollbar-thumb{
+    border-radius:100vw ;
+    background-color: hsl(0  0% 100% /0.5);
 }
