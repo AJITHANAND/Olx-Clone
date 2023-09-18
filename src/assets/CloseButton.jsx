@@ -5,7 +5,6 @@ function CloseButton({default_width="25px", default_height="25px"}) {
       height={default_height}
       viewBox="0 0 1024 1024"
       data-aut-id="icon"
-
       fillRule="evenodd"
     >
       <path
