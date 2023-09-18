@@ -4,6 +4,7 @@ import Arrow from "../../assets/Arrow";
 import { useContext, useEffect, useState } from "react";
 import { SearchContext } from "../../Contexts/SearchContext";
 import { categoriesContent } from "../../Constants/categories";
+import { banner_img } from "../../Constants/hosted_links";
 function Banner() {
   const { setSearch } = useContext(SearchContext);
 
@@ -79,7 +80,7 @@ function Banner() {
               <img
                 loading="lazy"
                 // src="../../../Images/banner copy.png"
-                src="https://raw.githubusercontent.com/AJITHANAND/Olx-Clone/deploy/static/images/banner.jpg"
+                src={banner_img}
                 alt=""
               />
             </div>
