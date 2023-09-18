@@ -1,8 +1,8 @@
 .viewParentDiv {
-  padding-top: 4em;
+  padding-top: 10em;
   display: flex;
   background-color: var(--background2);
-  height: 95dvh;
+  /* height: 90dvh; */
 }
 .viewParentDiv .imageShowDiv {
   padding: 16px;
