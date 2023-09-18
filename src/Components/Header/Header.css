@@ -182,3 +182,116 @@
     width: 25rem;
   }
 }
+
+
+.headerChildDiv .btn:focus{
+  /* outline: none; */
+  box-shadow: unset ;
+}
+
+
+
+.hamburger button::before {
+  transition: opacity .2s ease-in;
+  background-color: var(--brandAccentLight);
+  z-index: -1;
+}
+
+.hamburger button::after{
+  background-image: radial-gradient(circle,var(--white) 10%,transparent 10.01%);
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  transform: scale(15);
+  transition: transform .5s,opacity .5s;
+}
+
+.hamburger button{
+  background-color: inherit;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+}
+
+.hamburger svg {
+  fill: var(--primaryBaseText);
+}
+
+
+.mobile-menu {
+  margin-top: 0.5em;
+  border-top: 1px solid var(--primaryLight2Text);
+  position: absolute;
+  top: 48px; 
+  left: 0;
+  height: 100dvh;
+  width: 100%;
+  background: whitesmoke;
+  /* padding: 1em; */
+}
+
+.welcome-user{
+  /* padding: 20px 16px 20px 0; */
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--primaryLight2Text);
+}
+.welcome-user img{
+  width: 5em;
+  aspect-ratio: 4/5;
+  mix-blend-mode: multiply;
+  object-fit: contain;
+}
+
+.welcome-user .userText{
+  justify-content: start;
+  margin-left: 10px;
+
+}
+
+.welcome-user p{
+  margin-block: 0;
+  margin-bottom: 0;
+  font-size: 24px;
+  line-height: 24px;
+  font-weight: 700;
+  color: var(--primaryBaseText);
+}
+
+.welcome-user p:last-child{
+  font-weight: normal;
+  font-size: x-small;
+}
+.fade-text{
+  color: var(--primaryLight2Text) !important; 
+}
+
+.mobile-menu .btn {
+  padding: 0;
+}
+
+.mobile-menu svg{
+  fill: var(--primaryBaseText);
+}
+
+.mobile-menu .loginButton{
+  font-weight: 800;
+  text-align: center;
+  border-radius: 5px;
+  margin: 1em;
+  padding:1em;
+  color:white;
+  background-color: var(--primaryBaseText);
+}
+
+.location {
+  display: inline-flex;
+  overflow: hidden;
+}
+.location p{
+  margin-top: 0.8em;
+  font-weight: 800;
+  margin-right: 0.5em;
+}

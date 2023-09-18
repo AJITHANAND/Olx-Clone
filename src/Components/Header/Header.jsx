@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import "./Header.css";
 import OlxLogo from "../../assets/OlxLogo";
 import Search from "../../assets/Search";
-import Arrow from "../../assets/Arrow";
 import SellButton from "../../assets/SellButton";
 import SellButtonPlus from "../../assets/SellButtonPlus";
 import { AuthContext } from "../../Contexts/User";
@@ -15,7 +14,20 @@ import { categoriesContent } from "../../Constants/categories";
 import CloseButton from "../../assets/CloseButton";
 import { getLocations } from "../../firebase/db_functions";
 import Select from "react-select";
-
+import {
+  hindi_param,
+  url_base_path,
+  url_host_path,
+  url_main,
+} from "../../Constants/translate";
+import HamburgetIcon from "../../assets/icons/HamburgetIcon";
+import { avatar_icon } from "../../Constants/hosted_links";
+import CameraIcon from "../../assets/icons/CameraIcon";
+import Heart from "../../assets/Heart"
+import QuestionIcon from "../../assets/icons/QuestionIcon";
+import GlobeIcon from "../../assets/icons/GlobeIcon";
+import LocationIcon from "../../assets/icons/LocationIcon";
+import axios from "axios";
 function Header() {
   const [showModal, setShowModal] = useState(false);
   const { user } = useContext(AuthContext);
@@ -73,35 +85,168 @@ function Header() {
       boxShadow: "none",
     }),
   };
+  const [menuOpen, setMenuOpen] = useState(false);
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+  const [location, setLocation] = useState('');
+
+  useEffect(() => {
+    const fetchLocation = async () => {
+      try {
+        const response = await axios.get('https://ipapi.co/json/');
+        console.log(response.data);
+        setLocation(response.data.city);
+      }
+       catch (error) {
+        console.error('Failed to fetch location:', error);
+      }
+    };
+
+    fetchLocation();
+  }, []);
   return (
     <div className="headerParentDiv">
       <div className="headerChildDiv">
         {isMobile ? (
           <div className="d-flex w-100 flex-column">
             <div className="brandName  d-flex flex-row justify-content-between">
-              <i onClick={() => navigate("/")}>
-                <OlxLogo></OlxLogo>
-              </i>
-              <div className="loginPage">
-                {
-                  user ? <Logout />:
-                  <span onClick={handleShowModal}>Login</span>
-                }
+              <div className="header-left d-flex flex-row ">
+                <div className="hamburger mr-2">
+                  <button onClick={toggleMenu}>
+                    {!menuOpen ? (
+                      <HamburgetIcon width="30px" height="48px" />
+                    ) : (
+                      <CloseButton default_width="30px" default_height="48px" />
+                    )}
+                  </button>
+                </div>
+
+                <i onClick={() => navigate("/")}>
+                  <OlxLogo></OlxLogo>
+                </i>
               </div>
+
+              <div className="location ">
+                <p>{location}</p>
+                < LocationIcon width="24px" />
+              </div>
+              {menuOpen && (
+                <div className="mobile-menu">
+                  <div className="welcome-user pt-1 pl-2">
+                    <picture>
+                      <img src={avatar_icon} alt="" />
+                    </picture>
+                    <div className="flex-column userText">
+                      <p>Welcome {user ? user.displayName : "To OLX!"}</p>
+                      <p className="fade-text">
+                        Take charge of your buying and selling journey.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="pl-3 pt-2 pb-1">
+                    <div
+                      className="sellMenuContent"
+                      onClick={() => navigate("/post")}
+                    >
+                      <i className="pr-2">
+                        <CameraIcon />
+                      </i>
+                      <span>Start selling</span>
+                    </div>
+                  </div>
+                  <div className="pl-3 pt-2 pb-1">
+                    <div
+                      className="sellMenuContent"
+                      // onClick={() => navigate("/post")}
+                    >
+                      <i className="pr-2">
+                        <Heart />
+                      </i>
+                      <span>My Ads</span>
+                    </div>
+                  </div>
+                  <div className="pl-3 pt-2 pb-1">
+                    <div
+                      className="sellMenuContent"
+                      onClick={() => window.location = "https://help.olx.in/hc/en-us"}
+                    >
+                      <i className="pr-2">
+                        <QuestionIcon />
+                      </i>
+                      <span>Help</span>
+                    </div>
+                  </div>
+                  <div className="dropdown pl-3 pt-2 pb-1">
+                    <i>
+                      <GlobeIcon />
+                    </i>
+                    <button
+                      className="btn dropdown-toggle"
+                      type="button"
+                      id="dropdownMenuButton"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      Select language
+                    </button>
+                    <div
+                      className="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton"
+                    >
+                      <a className="dropdown-item" href={url_main}>
+                        English
+                      </a>
+                      <a
+                        className="dropdown-item"
+                        href={`${
+                          url_host_path +
+                          ".translate.goog/" +
+                          url_base_path +
+                          "/?_x_tr_sl=auto&_x_tr_tl=" +
+                          hindi_param +
+                          "&_x_tr_hl=en-US&_x_tr_pto=wapp"
+                        }`}
+                      >
+                        Hindi
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="loginButton">
+                    {user ? (
+                      <>
+                        <Logout />
+                      </>
+                    ) : (
+                      <span onClick={handleShowModal}>Login</span>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
             <div className="w-100">
-              <div 
-              className="w-100"
-              style={{
-                width:"99%",
-                border:"2px solid var(--blackText)",
-                height:"40px",
-                borderRadius:"5px",
-              }}
+              <div
+                className="w-100"
+                style={{
+                  background: "white",
+                  width: "99%",
+                  border: "2px solid var(--blackText)",
+                  height: "40px",
+                  borderRadius: "5px",
+                }}
               >
-                <Search color="rgba(0,47,52,1)" />
+                <i className="pl-1 pt-2" style={{ paddingTop: "5px" }}>
+                  <Search width="30px" height="30px" color="rgba(0,47,52,1)" />
+                </i>
                 <input
-                  style={{border:"none",}}
+                  style={{
+                    border: "none",
+                    height: "98%",
+                    width: "89%",
+                    marginTop: "1px",
+                  }}
                   type="text"
                   name="productSearch"
                   id="productSearch"
@@ -175,9 +320,38 @@ function Header() {
                 <Search color="#ffffff"></Search>
               </div>
             </div>
-            <div className="language">
-              <span> ENGLISH </span>
-              <Arrow></Arrow>
+            <div className="dropdown">
+              <button
+                className="btn dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                English
+              </button>
+              <div
+                className="dropdown-menu"
+                aria-labelledby="dropdownMenuButton"
+              >
+                <a className="dropdown-item" href={url_main}>
+                  English
+                </a>
+                <a
+                  className="dropdown-item"
+                  href={`${
+                    url_host_path +
+                    ".translate.goog/" +
+                    url_base_path +
+                    "/?_x_tr_sl=auto&_x_tr_tl=" +
+                    hindi_param +
+                    "&_x_tr_hl=en-US&_x_tr_pto=wapp"
+                  }`}
+                >
+                  Hindi
+                </a>
+              </div>
             </div>
 
             <div className="loginPage">

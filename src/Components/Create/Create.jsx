@@ -1,4 +1,4 @@
-import  { useState,  useContext, useRef, } from "react";
+import  { useState,  useContext, useRef,useEffect } from "react";
 import "./Create.css";
 import { categoriesContent } from "../../Constants/categories";
 import BackArrow from "../../assets/BackArrow";
@@ -10,6 +10,20 @@ import { addDoc } from "firebase/firestore";
 import {useNavigate} from "react-router-dom"
 import { addLocation } from "../../firebase/db_functions";
 const Create = () => {
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setIsMobile(true);
+      } else {
+        setIsMobile(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   const [category, SetCategory] = useState({});
   const { Firebase } = useContext(FirebaseContext);
   const { user } = useContext(AuthContext);
@@ -90,7 +104,7 @@ const Create = () => {
   };
   return (
     <>
-      <div className="container centerDiv border-0">
+      <div className={`container centerDiv border-0 ${isMobile ? "p-0 mobile-create":""}`}>
         <h1 className="font-weight-bold">POST YOUR AD</h1>
         {Object.keys(category).length === 0 && (
           <section>
