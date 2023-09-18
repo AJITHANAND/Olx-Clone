@@ -238,7 +238,7 @@ function Header() {
                 }}
               >
                 <i className="pl-1 pt-2" style={{ paddingTop: "5px" }}>
-                  <Search width="30px" height="30px" color="rgba(0,47,52,1)" />
+                  <Search width="8%" height="30px" color="rgba(0,47,52,1)" />
                 </i>
                 <input
                   style={{
