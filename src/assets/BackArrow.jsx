@@ -3,8 +3,8 @@ import React from "react";
 function BackArrow() {
   return (
     <svg
-      width="24"
-      height="24"
+      width="24px"
+      height="24px"
       viewBox="0 0 24 24"
       fillRule="evenodd"
     >

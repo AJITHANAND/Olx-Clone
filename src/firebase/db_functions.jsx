@@ -1,5 +1,5 @@
 import {  doc, setDoc, getDoc,getDocs } from "firebase/firestore";
-import { locationsRef } from "./constants";
+import { locationsRef, productCollection } from "./constants";
 
 
 export async function addLocation(location) {
@@ -22,4 +22,14 @@ export async function getLocations() {
   });
   console.log(locations)
   return locations;
+}
+
+export async function getAllProducts(){
+  const products = [];
+  const querySnapshot = await getDocs(productCollection);
+  querySnapshot.forEach((doc) => {
+    products.push(doc.data())
+  })
+  // console.log(products);
+  return products;
 }

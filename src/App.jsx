@@ -9,6 +9,7 @@ import ViewPost from "./Pages/ViewPost";
 import { AuthContext } from "./Contexts/User";
 import { onAuthStateChanged, getAuth } from "firebase/auth";
 import { FirebaseContext } from "./Contexts/FirebaseContext";
+import UserAccount from "./Pages/UserAccount";
 function App() {
   const { user, setUser } = useContext(AuthContext);
   const { Firebase } = useContext(FirebaseContext);
@@ -30,6 +31,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/view" element={<ViewPost />} />
           <Route path="/post" element={<CreatePage />} />
+          <Route path="/manage" element={<UserAccount />} />
         </Routes>
       </Router>
     </div>
