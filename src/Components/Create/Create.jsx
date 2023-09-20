@@ -104,11 +104,12 @@ const Create = () => {
   };
   return (
     <>
-      <div className={`container centerDiv d-flex flex-column justify-content-center align-item-center border-0 ${isMobile ? "p-0 mobile-create":""}`}>
+    <div className="container centerDiv ">
+      {/* <div className={`container centerDiv d-flex flex-column justify-content-center align-item-center border-0 ${isMobile ? "p-0 mobile-create":""}`}> */}
         <h1 className="font-weight-bold">POST YOUR AD</h1>
         {Object.keys(category).length === 0 && (
           <section>
-            <div className="container">
+            <div className="container category-contents">
               <table>
                 <caption style={{ width: "max-content", captionSide: "top" }}>
                   CHOOSE A CATEGORY

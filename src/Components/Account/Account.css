@@ -2,8 +2,7 @@
     border:1px solid transparent;
 }
 .myAds{
-    /* margin-top:6em;
-    padding-top: 1em; */
+    padding-top: 1em;
 }
 
 .mobile-top{
@@ -30,4 +29,88 @@
 }
 .myAds-mobile-header svg{
     fill: var(--primaryBaseText);
+}
+
+.mobile-top .option-tab{
+    width: 100%;
+    padding: 0 0.5em 0;
+    display: flex;
+    max-width: 250px;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.mobile-top{
+    border-bottom:1px solid var(--lightGrey);
+}
+
+@media all and (max-width: 768px) {
+    .mobile-top .option-tab{
+        max-width: 100%;
+    }
+}
+
+.ads-content{
+    padding:1em;
+}
+
+.ads-content .row .col-12{
+    display: flex;
+    justify-content: center;
+    /* width: auto; */
+    align-items: center;
+}
+
+.ads-content .row img{
+    aspect-ratio: 4/5;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    width: 250px;
+    margin:0 auto;
+}
+
+.ads-content .row .col-12 p{
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+}
+
+.ads-content .row .btn {
+    background-color: var(--primaryBaseText);
+    color :white;
+    display: flex;
+    margin: 0 auto;
+}
+
+.ads-content .cards{
+    display: grid;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    justify-content: space-between;
+    margin: 0 auto;
+    gap: 10px;
+}
+
+
+/* .ads-content .cards svg{
+    background: var(--primaryLight5);
+    border-radius: 50%;
+} */
+
+@media (min-width: 768px) {
+    .myAds{
+        padding-top: 4em !important;
+    }
+    .mobile-top{
+        width: 20em;
+    }
+
+    .myAds .grid {
+        grid-template-columns: repeat(4, 1fr);
+
+    }
+}
+
+.singleGrid {
+    grid-template-columns: repeat(1, 1fr);
 }

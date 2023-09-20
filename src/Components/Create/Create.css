@@ -1,12 +1,16 @@
 .centerDiv {
-  border: 1px solid black;
-  width: max-content;
-  padding: 50px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  padding-top: 8em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   border-radius: 6px;
+}
+
+@media only screen and (min-width:992px ) {
+   .centerDiv{
+    padding-top: 6em;
+   }
 }
 
 .input {
@@ -37,19 +41,6 @@
   border-radius: 5px;
 }
 
-@media only screen and (max-width: 1555px) {
-  .centerDiv {
-    top: 65%;
-  }
-}
-
-@media only screen and (max-height: 455px) {
-  .centerDiv {
-    position: absolute;
-    top: 80%;
-    left: 50%;
-  }
-}
 
 .centerDiv table tr :has(span, i) {
   color: var(--blackSecondaryText);
@@ -130,6 +121,11 @@ table tr td span {
   outline: none;
 }
 
-.mobile-create{
-  top:55% !important;
+.addProduct {
+  border: 1px solid var(--black20);
+}
+
+
+.category-contents{
+  border: 1px solid var(--black20) !important;
 }

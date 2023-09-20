@@ -21,7 +21,7 @@ function App() {
       setUser(user);
     });
     console.log(user);
-  }, [user]);
+  }, [user,Firebase,setUser]);
 
   return (
     <div>

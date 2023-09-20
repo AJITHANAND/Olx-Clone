@@ -72,8 +72,7 @@ function Posts() {
         });
     }
     console.log(searchProduct);
-  }, [search]);
-  
+  }, [search,searchProduct]);
 
   return (
     <div className="postParentDiv d-flex align-items-center justify-content-center flex-column">
@@ -183,11 +182,11 @@ function Posts() {
                   </div>
                   <div className="image">
                     <img
-                      // style={{
-                      //   aspectRatio: "auto",
-                      //   width: "100%",
-                      //   height: "10em",
-                      // }}
+                      style={{
+                        aspectRatio: "auto",
+                        width: "100%",
+                        height: "10em",
+                      }}
                       alt=""
                     />
                   </div>

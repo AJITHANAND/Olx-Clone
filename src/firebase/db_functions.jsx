@@ -1,4 +1,4 @@
-import {  doc, setDoc, getDoc,getDocs } from "firebase/firestore";
+import {  doc, setDoc, getDoc,getDocs, query, where } from "firebase/firestore";
 import { locationsRef, productCollection } from "./constants";
 
 
@@ -32,4 +32,22 @@ export async function getAllProducts(){
   })
   // console.log(products);
   return products;
+}
+
+export async function getProductsByUserID(userID) {
+  const products = [];
+  const Query  = query(productCollection, where("userId", "==", userID));
+
+  const querySnapshot = await getDocs(Query);
+  querySnapshot.forEach((doc) => {
+    products.push(doc.data())
+  });
+  return products;
+}
+
+
+export async function delProduct(product){
+   const docRef = doc(productCollection, product.id);
+   await docRef.delete();
+
 }

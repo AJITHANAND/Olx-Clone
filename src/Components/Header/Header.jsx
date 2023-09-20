@@ -158,7 +158,7 @@ function Header() {
                   <div className="pl-3 pt-2 pb-1">
                     <div
                       className="sellMenuContent"
-                      // onClick={() => navigate("/post")}
+                      onClick={() => navigate("/manage")}
                     >
                       <i className="pr-2">
                         <Heart />

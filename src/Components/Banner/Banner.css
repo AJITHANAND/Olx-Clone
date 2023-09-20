@@ -5,7 +5,7 @@
 } */
 
 .bannerParentDiv .bannerChildDiv .menuBar {
-  padding: 1em;
+  padding: 1em 1em 0 1em;
   display: flex;
   flex-direction: row;
 }
