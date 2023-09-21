@@ -9,6 +9,8 @@ import { productCollection } from "../../firebase/constants";
 import { addDoc } from "firebase/firestore";
 import {useNavigate} from "react-router-dom"
 import { addLocation } from "../../firebase/db_functions";
+import { v4 as uniqueID } from 'uuid';
+
 const Create = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   useEffect(() => {
@@ -63,7 +65,7 @@ const Create = () => {
     const metadata = {
       contentType: file.type,
     };
-    const imageRef = ref(storage, `Product_images/${file.name}`);
+    const imageRef = ref(storage, `Product_images/${uniqueID()}`);
     uploadBytes(imageRef, file, metadata)
       .then((response) => {
         // console.log("upload resp : " );

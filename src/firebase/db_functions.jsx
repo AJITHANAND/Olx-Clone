@@ -1,13 +1,15 @@
-import {  doc, setDoc, getDoc,getDocs, query, where } from "firebase/firestore";
-import { locationsRef, productCollection } from "./constants";
-
+import {  doc, setDoc, getDoc,getDocs, query, where, deleteDoc } from "firebase/firestore";
+import { db, locationsRef, productCollection, storage } from "./constants";
+import { v4 as uuidv4 } from 'uuid';
+import { ref } from "firebase/storage";
+import { deleteObject } from "firebase/storage";
 
 export async function addLocation(location) {
   const docRef = doc(locationsRef, location);
   const docSnap = await getDoc(docRef);
 
   if (!docSnap.exists()) {
-    await setDoc(docRef, { name: location });
+    await setDoc(docRef, { name: location ,id:uuidv4() });
     console.log("Location added!");
   } else {
     console.log("Location already exists!");
@@ -40,14 +42,26 @@ export async function getProductsByUserID(userID) {
 
   const querySnapshot = await getDocs(Query);
   querySnapshot.forEach((doc) => {
-    products.push(doc.data())
+    products.push({ id: doc.id,...doc.data()})
   });
+  // console.log(products);
   return products;
 }
 
 
 export async function delProduct(product){
-   const docRef = doc(productCollection, product.id);
-   await docRef.delete();
+  console.log(product);
+  const docRef = doc(db, productCollection.path, product.id);
+  const imageRef = ref(storage,product.image);
+  deleteObject(imageRef).then(() => {
+    // console.log("Image successfully deleted!");
+  }).catch(() => {
+    // console.error("Error deleting image:", error);
+    return false;
+  });
 
+  deleteDoc(docRef).then(() => { 
+  //  console.log("Document successfully deleted!");
+   return true;
+ } ).catch(()=> {return false});
 }

@@ -21,6 +21,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.15.0",
     "react-select": "^5.7.4",
+    "uuid": "^9.0.1",
     "yet-another-react-lightbox": "^3.12.2"
   },
   "devDependencies": {

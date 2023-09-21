@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getProductsByUserID } from "../../firebase/db_functions";
+import { delProduct, getProductsByUserID } from "../../firebase/db_functions";
 import "./Account.css";
 import BackArrow from "../../assets/BackArrow";
 import { useNavigate } from "react-router-dom";
@@ -10,16 +10,21 @@ function Account({ isMobile, user }) {
   const [loadingDefault, setLoadingDefault] = useState(true);
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
-  const haveProduct = products.length > 0;
   console.log(user);
 
   useEffect(() => {
     if (user) {
-      getProductsByUserID(user.uid).then((products) => setProducts(products));
+      getProductsByUserID(user.uid).then((products) => setProducts(products)).catch(()=>{setProducts([])});
     }
     setLoadingDefault(false);
   }, [user, setLoadingDefault]);
-
+  const deleteAds=(product)=>{
+      const status = window.confirm('Are you sure you want to delete :'+product.name);
+       if(status){
+         delProduct(product).then(()=>{
+           setProducts(products.filter((item)=>item.id!==product.id));
+         })
+  }};
   return (
     <>
       {isMobile && (
@@ -39,13 +44,16 @@ function Account({ isMobile, user }) {
           </div>
         </div>
         <div className="container ads-content">
-          <div className="cards grid">
+          <div className={`cards ${products.length>0?'':'singleGrid'} grid`}>
             {user ? (
               <>
-                {Object.keys(products).length > 1000? (
+                {products.length > 0? (
                   products.map((product, index) => (
                     <div className="card" key={index}>
-                      <div className="favorite">
+                      <div 
+                      className="favorite"
+                      onClick={() => deleteAds(product)}
+                      >
                         {<DeleteIcon width={20} height={20} />}
                       </div>
                       <div className="image">
@@ -77,7 +85,7 @@ function Account({ isMobile, user }) {
                         />
                       </div>
                       <div className="col-12">
-                        <p>You haven't listed anything yet</p>
+                        <p>You haven&apos;t listed anything yet</p>
                       </div>
                       <div className="col-12 ">
                         <button className="btn" onClick={() => navigate("/")}>
