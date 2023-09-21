@@ -30,8 +30,7 @@ The OLX Clone project is a web application that replicates the functionality of 
 
 ## Demo
 
-You can access the live demo of this project [here](demo-link).
-
+You can access the live demo of this project [here](https://ajithanand.github.io/Olx-Clone/).
 ---
 
 ## Features
