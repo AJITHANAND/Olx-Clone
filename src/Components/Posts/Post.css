@@ -173,3 +173,23 @@
     grid-template-columns: repeat(2, 1fr) !important;
   }
 }
+
+.bottom {
+  text-overflow: ellipsis;
+}
+
+.bottom span{
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* lines to show */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 3em;
+  line-height: 1.5em;
+  margin-right: 5px ;
+}
+
+.postParentDiv .favorite svg path {
+  fill:red;
+}
+

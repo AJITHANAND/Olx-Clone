@@ -1,11 +1,11 @@
 import { useEffect, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getDocs, query, where } from "firebase/firestore";
 import Heart from "../../assets/Heart";
 import "./Post.css";
-import { productCollection } from "../../firebase/constants";
 import { PostDetailsContext } from "../../Contexts/PostContext";
 import { SearchContext } from "../../Contexts/SearchContext";
+import { getAllProducts, toggleLikeProduct,fetchSearchResults } from "../../firebase/db_functions";
+import { AuthContext } from "../../Contexts/User";
 
 function Posts() {
   const [loadingDefault, setLoadingDefault] = useState(true);
@@ -15,65 +15,52 @@ function Posts() {
   const { setPostDetails } = useContext(PostDetailsContext);
   const navigate = useNavigate();
   const [searchProduct, setSearchProduct] = useState([]);
-
+  const {user} = useContext(AuthContext)
   useEffect(() => {
-    getDocs(productCollection)
-      .then((docs) => {
-        const productsData = [];
-        docs.forEach((doc) => {
-          productsData.push(doc.data());
-        });
-        setProducts(productsData);
-        setLoadingDefault(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching products:", error);
-      });
-  }, []);
+    getAllProducts(user)
+      .then(
+        (items) =>{
+          setProducts(items);
+          setLoadingDefault(false);
+          console.log(items);
+        })
+      .catch(err=>console.log(err));
+  }, [user]);
 
   useEffect(()=>{
-    console.log(products);
-  })
+  },[user])
 
   useEffect(() => {
     if (search) {
       setLoadingSearch(true);
-      console.log(search);
-      const fields = [
-        "brand",
-        "location",
-        "name",
-        "description",
-        "price",
-        "category",
-      ];
-      let promises = [];
-
-      fields.forEach((field) => {
-        const q = query(productCollection, where(field, "==", search));
-        promises.push(getDocs(q));
-      });
-
-      Promise.all(promises)
-        .then((snapshots) => {
-          let results = [];
-          snapshots.forEach((snapshot) => {
-            snapshot.forEach((doc) => {
-              if (!results.some((existingDoc) => existingDoc.id === doc.id)) {
-                results.push(doc.data());
-              }
-            });
-          });
-          setSearchProduct(results);
-          setLoadingSearch(false);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      fetchSearchResults(search,user)
+      .then((items) => {
+        setSearchProduct(items);
+        setLoadingSearch(false);
+      })
+      .catch((err) => console.log(err));
     }
-    console.log(searchProduct);
-  }, [search,searchProduct]);
-
+  }, [search,user]);
+  const like  = (id)=>{
+    if (!user){
+      alert('Please login first');
+      return;
+    }
+    toggleLikeProduct(user.uid,id);
+    setProducts(products.map((product)=>{ 
+      if (product.id === id){
+        product.liked = !product.liked;
+      }
+      return product;
+    }))
+    setSearchProduct(searchProduct.map((product)=>{
+      if (product.id === id){
+        product.liked = !product.liked;
+      }
+      return product;
+    }))
+  }
+  
   return (
     <div className="postParentDiv d-flex align-items-center justify-content-center flex-column">
       {search && (
@@ -132,31 +119,38 @@ function Posts() {
                 searchProduct.map((product, index) => (
                   <div
                     className="card"
-                    onClick={() => {
-                      setPostDetails(product);
-                      navigate("/view");
-                    }}
                     key={index}
                   >
-                    <div className="favorite">
-                      <Heart></Heart>
+                    <div className="favorite" onClick={()=>like(product.id)}>
+                      <Heart {...product.liked && { filled: true }}></Heart>
                     </div>
+                    <div
+                  onClick={() => {
+                    setPostDetails(product);
+                    navigate("/view");
+                  }}
+                  >
                     <div className="image">
                       <img
-                        loading="lazy"
-                        style={{ aspectRatio: "auto" }}
-                        src={product.image}
-                        alt=""
-                      />
+                       loading="lazy"
+                       src={product.image}
+                       alt=""
+                       />
                     </div>
                     <div className="content">
                       <p className="rate">&#x20B9; {product.price}</p>
                       <span className="kilometer">{product.name}</span>
-                      <p className="name"> {product.description}</p>
+                      <p className="name">{product.description}</p>
                     </div>
-                    <div className="date">
-                      <span>{product.createdAt}</span>
+                    <div className="bottom d-flex flex-row justify-content-between">
+                      <div className="date">
+                        <span>{product.location}</span>
+                      </div>
+                      <div className="date">
+                        <span>{product.createdAt}</span>
+                      </div>
                     </div>
+                  </div>
                   </div>
                 ))}
           </div>
@@ -215,29 +209,36 @@ function Posts() {
             : products.map((product, index) => (
                 <div
                   className="card p-2"
+                  key={index}
+                >
+                  <div className="favorite" onClick={()=>like(product.id)}>
+                    <Heart {...product.liked && { filled: true }}></Heart>
+                  </div>
+                  <div
                   onClick={() => {
                     setPostDetails(product);
                     navigate("/view");
                   }}
-                  key={index}
-                >
-                  <div className="favorite">
-                    <Heart></Heart>
-                  </div>
-                  <div className="image">
-                    <img loading="lazy" src={product.image} alt="" />
-                  </div>
-                  <div className="content">
-                    <p className="rate">&#x20B9; {product.price}</p>
-                    <span className="kilometer">{product.name}</span>
-                    <p className="name">{product.description}</p>
-                  </div>
-                  <div className="bottom d-flex flex-row justify-content-between">
-                    <div className="date">
-                      <span>{product.location}</span>
+                  >
+                    <div className="image">
+                      <img
+                       loading="lazy"
+                       src={product.image}
+                       alt=""
+                       />
                     </div>
-                    <div className="date">
-                      <span>{product.createdAt}</span>
+                    <div className="content">
+                      <p className="rate">&#x20B9; {product.price}</p>
+                      <span className="kilometer">{product.name}</span>
+                      <p className="name">{product.description}</p>
+                    </div>
+                    <div className="bottom d-flex flex-row justify-content-between">
+                      <div className="date">
+                        <span>{product.location}</span>
+                      </div>
+                      <div className="date">
+                        <span>{product.createdAt}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
