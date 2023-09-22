@@ -36,85 +36,87 @@ function Account({ isMobile, user }) {
         </div>
       )}
 
-      <div className="container p-0 myAds">
-        <div className="mobile-top">
-          <div className="option-tab">
-            <p>ADS</p>
-            <p>Favourite</p>
+      <div>
+        <div style={{display:'block !important'}} className="container p-0 myPosts">
+          <div className="mobile-top">
+            <div className="option-tab">
+              <p>ADS</p>
+              <p>Favourite</p>
+            </div>
           </div>
-        </div>
-        <div className="container ads-content">
-          <div className={`cards ${products.length>0?'':'singleGrid'} grid`}>
-            {user ? (
-              <>
-                {products.length > 0? (
-                  products.map((product, index) => (
-                    <div className="card" key={index}>
-                      <div 
-                      className="favorite"
-                      onClick={() => deleteAds(product)}
-                      >
-                        {<DeleteIcon width={20} height={20} />}
+          <div className="container myPosts-content">
+            <div className={`cards ${products.length>0?'':'singleGrid'} grid`}>
+              {user ? (
+                <>
+                  {products.length > 0? (
+                    products.map((product, index) => (
+                      <div className="card" key={index}>
+                        <div
+                        className="favorite"
+                        onClick={() => deleteAds(product)}
+                        >
+                          {<DeleteIcon width={20} height={20} />}
+                        </div>
+                        <div className="image">
+                          <img
+                            loading="lazy"
+                            style={{ aspectRatio: "auto" }}
+                            src={product.image}
+                            alt=""
+                          />
+                        </div>
+                        <div className="content">
+                          <p className="rate">&#x20B9; {product.price}</p>
+                          <span className="kilometer">{product.name}</span>
+                          <p className="name"> {product.description}</p>
+                        </div>
+                        <div className="date">
+                          <span>{product.createdAt}</span>
+                        </div>
                       </div>
-                      <div className="image">
-                        <img
-                          loading="lazy"
-                          style={{ aspectRatio: "auto" }}
-                          src={product.image}
-                          alt=""
-                        />
+                    ))
+                  ) : (
+                    <>
+                      <div className="row">
+                        <div className="col-12">
+                          <img
+                            className="d-flex justify-content-center align-items-center"
+                            src={account_ads}
+                            alt="img"
+                          />
+                        </div>
+                        <div className="col-12">
+                          <p>You haven&apos;t listed anything yet</p>
+                        </div>
+                        <div className="col-12 ">
+                          <button className="btn" onClick={() => navigate("/")}>
+                            Home
+                          </button>
+                        </div>
                       </div>
-                      <div className="content">
-                        <p className="rate">&#x20B9; {product.price}</p>
-                        <span className="kilometer">{product.name}</span>
-                        <p className="name"> {product.description}</p>
-                      </div>
-                      <div className="date">
-                        <span>{product.createdAt}</span>
-                      </div>
-                    </div>
-                  ))
-                ) : (
-                  <>
-                    <div className="row">
-                      <div className="col-12">
-                        <img
-                          className="d-flex justify-content-center align-items-center"
-                          src={account_ads}
-                          alt="img"
-                        />
-                      </div>
-                      <div className="col-12">
-                        <p>You haven&apos;t listed anything yet</p>
-                      </div>
-                      <div className="col-12 ">
-                        <button className="btn" onClick={() => navigate("/")}>
-                          Home
-                        </button>
-                      </div>
-                    </div>
-                  </>
-                )}
-              </>
-            ) : (
-              <div className="row">
-                <div className="col-12">
-                  <img
-                    className="d-flex justify-content-center align-items-center"
-                    src={account_ads}
-                    alt="img"
-                  />
+                    </>
+                  )}
+                </>
+              ) : (
+                <div className="row">
+                  <div className="col-12">
+                    <img
+                      className="d-flex justify-content-center align-items-center"
+                      src={account_ads}
+                      alt="img"
+                    />
+                  </div>
+                  <div className="col-12">
+                    <p>Please login to see your ads.</p>
+                  </div>
+                  <div className="col-12 ">
+                    <button className="btn" onClick={() => navigate("/")}>
+                      Home
+                    </button>
+                  </div>
                 </div>
-                <div className="col-12">
-                  <p>Please login to see your ads.</p>
-                </div>
-                <div className="col-12 ">
-                  <button className="btn" onClick={() => navigate("/")}>
-                    Home
-                  </button>
-                </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
       </div>

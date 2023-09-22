@@ -1,7 +1,7 @@
 .container {
     border:1px solid transparent;
 }
-.myAds{
+.myPosts{
     padding-top: 1em;
 }
 
@@ -50,18 +50,18 @@
     }
 }
 
-.ads-content{
+.myPosts-content{
     padding:1em;
 }
 
-.ads-content .row .col-12{
+.myPosts-content .row .col-12{
     display: flex;
     justify-content: center;
     /* width: auto; */
     align-items: center;
 }
 
-.ads-content .row img{
+.myPosts-content .row img{
     aspect-ratio: 4/5;
     object-fit: contain;
     mix-blend-mode: multiply;
@@ -69,20 +69,20 @@
     margin:0 auto;
 }
 
-.ads-content .row .col-12 p{
+.myPosts-content .row .col-12 p{
     text-align: center;
     font-size: large;
     font-weight: bold;
 }
 
-.ads-content .row .btn {
+.myPosts-content .row .btn {
     background-color: var(--primaryBaseText);
     color :white;
     display: flex;
     margin: 0 auto;
 }
 
-.ads-content .cards{
+.myPosts-content .cards{
     display: grid;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -98,14 +98,14 @@
 } */
 
 @media (min-width: 768px) {
-    .myAds{
+    .myPosts{
         padding-top: 4em !important;
     }
     .mobile-top{
         width: 20em;
     }
 
-    .myAds .grid {
+    .myPosts .grid {
         grid-template-columns: repeat(4, 1fr);
 
     }
