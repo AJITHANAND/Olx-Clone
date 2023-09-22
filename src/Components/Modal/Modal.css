@@ -5,3 +5,22 @@
 .header-modal::-webkit-scrollbar{
     display: none;
 }
+
+@media only screen and (min-width: 768px){
+    .modal-content{
+        max-width: 400px;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .modal-content{
+        max-width: 300px;
+    }
+}
+
+
+@media only screen and (min-width: 1200px){ 
+    .modal-content{
+        max-width: 340px;
+    }
+}

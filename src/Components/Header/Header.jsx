@@ -23,11 +23,12 @@ import {
 import HamburgetIcon from "../../assets/icons/HamburgetIcon";
 import { avatar_icon } from "../../Constants/hosted_links";
 import CameraIcon from "../../assets/icons/CameraIcon";
-import Heart from "../../assets/Heart"
+import Heart from "../../assets/Heart";
 import QuestionIcon from "../../assets/icons/QuestionIcon";
 import GlobeIcon from "../../assets/icons/GlobeIcon";
 import LocationIcon from "../../assets/icons/LocationIcon";
 import axios from "axios";
+import LogoutIcon from "../../assets/icons/LogoutIcon";
 function Header() {
   const [showModal, setShowModal] = useState(false);
   const { user } = useContext(AuthContext);
@@ -89,17 +90,16 @@ function Header() {
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
-  const [location, setLocation] = useState('');
+  const [location, setLocation] = useState("");
 
   useEffect(() => {
     const fetchLocation = async () => {
       try {
-        const response = await axios.get('https://ipapi.co/json/');
+        const response = await axios.get("https://ipapi.co/json/");
         console.log(response.data);
         setLocation(response.data.city);
-      }
-       catch (error) {
-        console.error('Failed to fetch location:', error);
+      } catch (error) {
+        console.error("Failed to fetch location:", error);
       }
     };
 
@@ -129,7 +129,7 @@ function Header() {
 
               <div className="location ">
                 <p>{location}</p>
-                < LocationIcon width="24px" />
+                <LocationIcon width="24px" />
               </div>
               {menuOpen && (
                 <div className="mobile-menu">
@@ -169,7 +169,9 @@ function Header() {
                   <div className="pl-3 pt-2 pb-1">
                     <div
                       className="sellMenuContent"
-                      onClick={() => window.location = "https://help.olx.in/hc/en-us"}
+                      onClick={() =>
+                        (window.location = "https://help.olx.in/hc/en-us")
+                      }
                     >
                       <i className="pr-2">
                         <QuestionIcon />
@@ -320,53 +322,73 @@ function Header() {
                 <Search color="#ffffff"></Search>
               </div>
             </div>
-            <div className="dropdown">
-              <button
-                className="btn dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                English
-              </button>
-              <div
-                className="dropdown-menu"
-                aria-labelledby="dropdownMenuButton"
-              >
-                <a className="dropdown-item" href={url_main}>
-                  English
-                </a>
-                <a
-                  className="dropdown-item"
-                  href={`${
-                    url_host_path +
-                    ".translate.goog/" +
-                    url_base_path +
-                    "/?_x_tr_sl=auto&_x_tr_tl=" +
-                    hindi_param +
-                    "&_x_tr_hl=en-US&_x_tr_pto=wapp"
-                  }`}
+            <div className="language">
+              <div className="dropdown">
+                <button
+                  className="btn dropdown-toggle"
+                  type="button"
+                  id="dropdownMenuButton"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
                 >
-                  Hindi
-                </a>
+                  English
+                </button>
+                <div
+                  className="dropdown-menu"
+                  aria-labelledby="dropdownMenuButton"
+                >
+                  <a className="dropdown-item" href={url_main}>
+                    English
+                  </a>
+                  <a
+                    className="dropdown-item"
+                    href={`${
+                      url_host_path +
+                      ".translate.goog/" +
+                      url_base_path +
+                      "/?_x_tr_sl=auto&_x_tr_tl=" +
+                      hindi_param +
+                      "&_x_tr_hl=en-US&_x_tr_pto=wapp"
+                    }`}
+                  >
+                    Hindi
+                  </a>
+                </div>
               </div>
             </div>
 
-            <div className="loginPage">
+            <div className="language">
               {user ? (
-                `Welcome ${user.displayName}`
+                <div className="dropdown">
+                  <button
+                    className="btn dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    Welcome {user.displayName}
+                  </button>
+                  <div
+                    className="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <a className="dropdown-item" onClick={()=>navigate("/manage")}>
+                     <i style={{marginRight:"5px"}}><Heart width="17px" /></i>My Ads
+                    </a>
+                    <a className="dropdown-item d-flex flex-row">
+                      <i style={{marginRight:"5px"}}><LogoutIcon /> </i><Logout />
+                    </a>
+                  </div>
+                </div>
               ) : (
                 <span onClick={handleShowModal}>Login</span>
               )}
               <hr />
             </div>
-            {user && (
-              <div className="loginPage">
-                <Logout />
-              </div>
-            )}
+
             <div className="sellMenu">
               <SellButton></SellButton>
               <div

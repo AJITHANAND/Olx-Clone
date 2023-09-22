@@ -293,3 +293,7 @@
   font-weight: 800;
   margin-right: 0.5em;
 }
+
+.language .dropdown :is(button,a) {
+  color: var(--primaryBaseText);
+}
