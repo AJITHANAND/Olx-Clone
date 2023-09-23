@@ -193,7 +193,25 @@ export async function fetchSearchResults(search,user) {
       }
     });
   });
-  console.log(results);
+  // console.log(results);
   return results;
 }
 
+export async function getUserLikedProducts(uid) {
+  let promises = [];
+  const likedProducts = await getLikedProducts(uid);
+  likedProducts.forEach((productId) => {
+    promises.push(getDoc(doc(productCollection, productId)));
+  })
+  const snapshots = await Promise.all(promises);
+
+  let results = [];
+  
+  snapshots.forEach((snapshot) => {
+    if (snapshot.exists()) {
+      results.push({id: snapshot.id,...snapshot.data()});
+    }
+  })
+  // console.log(results)
+  return results;
+}

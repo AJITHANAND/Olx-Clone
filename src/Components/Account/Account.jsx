@@ -1,30 +1,55 @@
 import { useState, useEffect } from "react";
-import { delProduct, getProductsByUserID } from "../../firebase/db_functions";
+import {
+  delProduct,
+  getProductsByUserID,
+  getUserLikedProducts,
+  toggleLikeProduct,
+} from "../../firebase/db_functions";
 import "./Account.css";
 import BackArrow from "../../assets/BackArrow";
 import { useNavigate } from "react-router-dom";
-import { account_ads } from "../../Constants/hosted_links";
+import { account_ads, account_fav } from "../../Constants/hosted_links";
 import DeleteIcon from "../../assets/icons/DeleteIcon";
-
+import Heart from "../../assets/Heart";
 function Account({ isMobile, user }) {
-  const [loadingDefault, setLoadingDefault] = useState(true);
+  const [toggleWindow, setToggleWindow] = useState(true);
   const [products, setProducts] = useState([]);
+  const [likedProducts, setLikedProducts] = useState([]);
   const navigate = useNavigate();
-  console.log(user);
+  console.log(toggleWindow);
 
   useEffect(() => {
     if (user) {
-      getProductsByUserID(user.uid).then((products) => setProducts(products)).catch(()=>{setProducts([])});
+      getUserLikedProducts(user.uid)
+        .then((products) => setLikedProducts(products))
+        .catch(() => {});
+      getProductsByUserID(user.uid)
+        .then((products) => setProducts(products))
+        .catch(() => {
+          setProducts([]);
+        });
     }
-    setLoadingDefault(false);
-  }, [user, setLoadingDefault]);
-  const deleteAds=(product)=>{
-      const status = window.confirm('Are you sure you want to delete :'+product.name);
-       if(status){
-         delProduct(product).then(()=>{
-           setProducts(products.filter((item)=>item.id!==product.id));
-         })
-  }};
+  }, [user]);
+  const deleteAds = (product) => {
+    const status = window.confirm(
+      "Are you sure you want to delete :" + product.name
+    );
+    if (status) {
+      delProduct(product).then(() => {
+        setProducts(products.filter((item) => item.id !== product.id));
+      });
+    }
+  };
+
+  const like = (id) => {
+    if (!user) {
+      alert("Please login first");
+      return;
+    }
+    toggleLikeProduct(user.uid, id);
+    setLikedProducts(likedProducts.filter((product) => product.id !== id));
+  };
+
   return (
     <>
       {isMobile && (
@@ -37,67 +62,145 @@ function Account({ isMobile, user }) {
       )}
 
       <div>
-        <div style={{display:'block !important'}} className="container p-0 myPosts">
+        <div
+          style={{ display: "block !important" }}
+          className="container p-0 myPosts"
+        >
           <div className="mobile-top">
             <div className="option-tab">
-              <p>ADS</p>
-              <p>Favourite</p>
+              <p
+                role="button"
+                style={{ cursor: "pointer" }}
+                onClick={() => setToggleWindow(true)}
+              >
+                ADS
+              </p>
+              <p
+                role="button"
+                style={{ cursor: "pointer" }}
+                onClick={() => setToggleWindow(false)}
+              >
+                FAVORITES
+              </p>
             </div>
           </div>
           <div className="container myPosts-content">
-            <div className={`cards ${products.length>0?'':'singleGrid'} grid`}>
+            <div
+              className={`cards ${
+                products.length > 0 ? "" : "singleGrid"
+              } grid`}
+            >
               {user ? (
-                <>
-                  {products.length > 0? (
-                    products.map((product, index) => (
-                      <div className="card" key={index}>
-                        <div
-                        className="favorite"
-                        onClick={() => deleteAds(product)}
-                        >
-                          {<DeleteIcon width={20} height={20} />}
+                toggleWindow === true ? (
+                  <>
+                    {products.length > 0 ? (
+                      products.map((product, index) => (
+                        <div className="card" key={index}>
+                          <div
+                            className="favorite"
+                            onClick={() => deleteAds(product)}
+                          >
+                            {<DeleteIcon width={20} height={20} />}
+                          </div>
+                          <div className="image">
+                            <img
+                              loading="lazy"
+                              style={{ aspectRatio: "auto" }}
+                              src={product.image}
+                              alt=""
+                            />
+                          </div>
+                          <div className="content">
+                            <p className="rate">&#x20B9; {product.price}</p>
+                            <span className="kilometer">{product.name}</span>
+                            <p className="name"> {product.description}</p>
+                          </div>
+                          <div className="date">
+                            <span>{product.createdAt}</span>
+                          </div>
                         </div>
-                        <div className="image">
-                          <img
-                            loading="lazy"
-                            style={{ aspectRatio: "auto" }}
-                            src={product.image}
-                            alt=""
-                          />
+                      ))
+                    ) : (
+                      <>
+                        <div className="row">
+                          <div className="col-12">
+                            <img
+                              className="d-flex justify-content-center align-items-center"
+                              src={account_ads}
+                              alt="img"
+                            />
+                          </div>
+                          <div className="col-12">
+                            <p>You haven&apos;t listed anything yet</p>
+                          </div>
+                          <div className="col-12 ">
+                            <button
+                              className="btn"
+                              onClick={() => navigate("/")}
+                            >
+                              Home
+                            </button>
+                          </div>
                         </div>
-                        <div className="content">
-                          <p className="rate">&#x20B9; {product.price}</p>
-                          <span className="kilometer">{product.name}</span>
-                          <p className="name"> {product.description}</p>
+                      </>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    {likedProducts.length > 0 ? (
+                      likedProducts.map((product, index) => (
+                        <div className="card" key={index}>
+                          <div
+                            className="favorite"
+                            onClick={() => like(product.id)}
+                          >
+                            <Heart filled={true} />
+                          </div>
+                          <div className="image">
+                            <img
+                              loading="lazy"
+                              style={{ aspectRatio: "auto" }}
+                              src={product.image}
+                              alt=""
+                            />
+                          </div>
+                          <div className="content">
+                            <p className="rate">&#x20B9; {product.price}</p>
+                            <span className="kilometer">{product.name}</span>
+                            <p className="name"> {product.description}</p>
+                          </div>
+                          <div className="date">
+                            <span>{product.createdAt}</span>
+                          </div>
                         </div>
-                        <div className="date">
-                          <span>{product.createdAt}</span>
+                      ))
+                    ) : (
+                      <>
+                        <div className="row">
+                          <div className="col-12">
+                            <img
+                              className="d-flex justify-content-center align-items-center"
+                              src={account_fav}
+                              alt="img"
+                            />
+                          </div>
+                          <div className="col-12">
+                            <p>You haven&apos;t liked any ads yet</p>
+                          </div>
+                          <div className="col-12 ">
+                            <button
+                              className="btn"
+                              onClick={() => navigate("/")}
+                            >
+                              Discover
+                            </button>
+                          </div>
                         </div>
-                      </div>
-                    ))
-                  ) : (
-                    <>
-                      <div className="row">
-                        <div className="col-12">
-                          <img
-                            className="d-flex justify-content-center align-items-center"
-                            src={account_ads}
-                            alt="img"
-                          />
-                        </div>
-                        <div className="col-12">
-                          <p>You haven&apos;t listed anything yet</p>
-                        </div>
-                        <div className="col-12 ">
-                          <button className="btn" onClick={() => navigate("/")}>
-                            Home
-                          </button>
-                        </div>
-                      </div>
-                    </>
-                  )}
-                </>
-              ) : (
+                      </>
+                    )}
+                  </>
+                )
+              ) : toggleWindow ? (
                 <div className="row">
                   <div className="col-12">
                     <img
@@ -112,6 +215,24 @@ function Account({ isMobile, user }) {
                   <div className="col-12 ">
                     <button className="btn" onClick={() => navigate("/")}>
                       Home
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="row">
+                  <div className="col-12">
+                    <img
+                      className="d-flex justify-content-center align-items-center"
+                      src={account_fav}
+                      alt="img"
+                    />
+                  </div>
+                  <div className="col-12">
+                    <p>You haven&apos;t liked any ads yet</p>
+                  </div>
+                  <div className="col-12 ">
+                    <button className="btn" onClick={() => navigate("/")}>
+                      Discover
                     </button>
                   </div>
                 </div>

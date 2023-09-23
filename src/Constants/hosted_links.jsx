@@ -2,3 +2,4 @@ export const avatar_icon = "https://raw.githubusercontent.com/AJITHANAND/Olx-Clo
 export const banner_img = "https://raw.githubusercontent.com/AJITHANAND/Olx-Clone/deploy/static/images/banner.jpg"
 export const account_ads = "https://raw.githubusercontent.com/AJITHANAND/Olx-Clone/deploy/static/images/myAds.png"
 export const web_avatar_icon = "https://raw.githubusercontent.com/AJITHANAND/Olx-Clone/deploy/static/icons/webAvatar.png"
+export const account_fav = "https://raw.githubusercontent.com/AJITHANAND/Olx-Clone/deploy/static/images/no-favorites.png"
