@@ -1,12 +1,11 @@
 import { useEffect, useState, useContext } from "react";
-import React from "react";
 import "./Login.css";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { FirebaseContext } from "../../Contexts/FirebaseContext";
 function Login({ handleCloseModal }) {
   const [cred, setCred] = useState({ email: "", password: "" });
   const [login, setLogin] = useState(false);
-  const mailRegEx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+  const mailRegEx = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
   const { Firebase } = useContext(FirebaseContext);
   const auth = getAuth(Firebase);
   const [err, stateErr] = useState({
@@ -64,7 +63,7 @@ function Login({ handleCloseModal }) {
             onChange={(e) => handleForm(e)}
             name="password"
             className="w-100 mt-1"
-            type="text"
+            type="password"
             placeholder="password"
           />
         )}
