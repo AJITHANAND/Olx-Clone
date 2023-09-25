@@ -41,7 +41,7 @@ function Footer() {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     <div className="footerParentDiv">

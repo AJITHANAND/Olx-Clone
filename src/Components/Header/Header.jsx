@@ -6,7 +6,6 @@ import SellButton from "../../assets/SellButton";
 import SellButtonPlus from "../../assets/SellButtonPlus";
 import { AuthContext } from "../../Contexts/User";
 import Logout from "../Logout/Logout";
-import Login from "../Login/Login";
 import HeaderModal from "../Modal/Modal";
 import { useNavigate } from "react-router-dom";
 import { SearchContext } from "../../Contexts/SearchContext";
@@ -20,7 +19,7 @@ import {
   url_host_path,
   url_main,
 } from "../../Constants/translate";
-import HamburgetIcon from "../../assets/icons/HamburgetIcon";
+import HamburgerIcon from "../../assets/icons/HamburgerIcon";
 import { avatar_icon } from "../../Constants/hosted_links";
 import CameraIcon from "../../assets/icons/CameraIcon";
 import Heart from "../../assets/Heart";
@@ -29,7 +28,6 @@ import GlobeIcon from "../../assets/icons/GlobeIcon";
 import LocationIcon from "../../assets/icons/LocationIcon";
 import axios from "axios";
 import LogoutIcon from "../../assets/icons/LogoutIcon";
-import Signup from "../Signup/Signup";
 import AuthModal from "../Auth/AuthModal";
 function Header() {
   const [showModal, setShowModal] = useState(false);
@@ -62,7 +60,11 @@ function Header() {
       ...(category.type || []),
     ]);
     setTerms(temp);
-    getLocations().then((locations) => setPlaces(locations));
+    getLocations()
+      .then((locations) => setPlaces(locations))
+      .catch(
+        // (err)=>console.log(err)
+      );
   }, []);
   useEffect(() => {
     setSuggestions(searchInput.length > 0);
@@ -117,7 +119,7 @@ function Header() {
                 <div className="hamburger mr-2">
                   <button onClick={toggleMenu}>
                     {!menuOpen ? (
-                      <HamburgetIcon width="30px" height="48px" />
+                      <HamburgerIcon width="30px" height="48px" />
                     ) : (
                       <CloseButton default_width="30px" default_height="48px" />
                     )}

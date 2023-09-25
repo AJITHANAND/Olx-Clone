@@ -99,6 +99,8 @@ const Create = () => {
               alert(error.message);
               console.log(error);
             });
+        }).catch(() => {
+          // console.log(error);
         });
         // console.log("file uploaded successfully");
       })

@@ -40,7 +40,7 @@ function Account({ isMobile, user }) {
     if (status) {
       delProduct(product).then(() => {
         setProducts(products.filter((item) => item.id !== product.id));
-      });
+      }).catch(() => {});
     }
   };
 

@@ -25,7 +25,12 @@ function View() {
         querySnapshot.forEach((doc) => {
           setUserDetails(doc.data());
         });
-      });
+      }).catch(
+        // (err)=>{
+        //   console.log(err);
+        
+        // }
+      );
     }
   }, [postDetails,navigate]);
   return (

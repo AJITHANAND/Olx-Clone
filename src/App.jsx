@@ -1,7 +1,7 @@
 import { Route } from "react-router-dom";
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import "./App.css";
-import { BrowserRouter as Router, Routes, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes } from "react-router-dom";
 import Home from "./Pages/Home";
 import Signup from "./Pages/Signup";
 import CreatePage from "./Pages/Create";

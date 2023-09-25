@@ -1,4 +1,4 @@
-function HamburgetIcon(props) {
+function HamburgerIcon(props) {
   return (
     <svg
       width={props.width ? props.width :"24px"}
@@ -14,4 +14,4 @@ function HamburgetIcon(props) {
   );
 }
 
-export default HamburgetIcon;
+export default HamburgerIcon;

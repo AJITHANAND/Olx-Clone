@@ -26,7 +26,10 @@ function Login({ handleCloseModal ,setLoginWindow}) {
   const signIn = () => {
     console.log(cred);
     signInWithEmailAndPassword(auth, cred.email, cred.password)
-      .then((userCredential) => {
+      .then(
+        ()=>{
+        // (userCredential) => {
+        // console.log(userCredential);
         handleCloseModal();
       })
       .catch((error) => {
