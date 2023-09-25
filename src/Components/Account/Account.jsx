@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import {
   delProduct,
   getProductsByUserID,
@@ -11,7 +11,10 @@ import { useNavigate } from "react-router-dom";
 import { account_ads, account_fav } from "../../Constants/hosted_links";
 import DeleteIcon from "../../assets/icons/DeleteIcon";
 import Heart from "../../assets/Heart";
+import { PostDetailsContext } from "../../Contexts/PostContext";
+
 function Account({ isMobile, user }) {
+  const { setPostDetails } = useContext(PostDetailsContext);
   const [toggleWindow, setToggleWindow] = useState(true);
   const [products, setProducts] = useState([]);
   const [likedProducts, setLikedProducts] = useState([]);
@@ -102,21 +105,28 @@ function Account({ isMobile, user }) {
                           >
                             {<DeleteIcon width={20} height={20} />}
                           </div>
-                          <div className="image">
-                            <img
-                              loading="lazy"
-                              style={{ aspectRatio: "auto" }}
-                              src={product.image}
-                              alt=""
-                            />
-                          </div>
-                          <div className="content">
-                            <p className="rate">&#x20B9; {product.price}</p>
-                            <span className="kilometer">{product.name}</span>
-                            <p className="name"> {product.description}</p>
-                          </div>
-                          <div className="date">
-                            <span>{product.createdAt}</span>
+                          <div
+                            onClick={() => {
+                              setPostDetails(product);
+                              navigate("/view");
+                            }}
+                          >
+                            <div className="image">
+                              <img
+                                loading="lazy"
+                                style={{ aspectRatio: "auto" }}
+                                src={product.image}
+                                alt=""
+                              />
+                            </div>
+                            <div className="content">
+                              <p className="rate">&#x20B9; {product.price}</p>
+                              <span className="kilometer">{product.name}</span>
+                              <p className="name"> {product.description}</p>
+                            </div>
+                            <div className="date">
+                              <span>{product.createdAt}</span>
+                            </div>
                           </div>
                         </div>
                       ))
@@ -156,21 +166,29 @@ function Account({ isMobile, user }) {
                           >
                             <Heart filled={true} />
                           </div>
-                          <div className="image">
-                            <img
-                              loading="lazy"
-                              style={{ aspectRatio: "auto" }}
-                              src={product.image}
-                              alt=""
-                            />
-                          </div>
-                          <div className="content">
-                            <p className="rate">&#x20B9; {product.price}</p>
-                            <span className="kilometer">{product.name}</span>
-                            <p className="name"> {product.description}</p>
-                          </div>
-                          <div className="date">
-                            <span>{product.createdAt}</span>
+
+                          <div
+                            onClick={() => {
+                              setPostDetails(product);
+                              navigate("/view");
+                            }}
+                          >
+                            <div className="image">
+                              <img
+                                loading="lazy"
+                                style={{ aspectRatio: "auto" }}
+                                src={product.image}
+                                alt=""
+                              />
+                            </div>
+                            <div className="content">
+                              <p className="rate">&#x20B9; {product.price}</p>
+                              <span className="kilometer">{product.name}</span>
+                              <p className="name"> {product.description}</p>
+                            </div>
+                            <div className="date">
+                              <span>{product.createdAt}</span>
+                            </div>
                           </div>
                         </div>
                       ))
