@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import "./Login.css";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { FirebaseContext } from "../../Contexts/FirebaseContext";
-function Login({ handleCloseModal }) {
+function Login({ handleCloseModal ,setLoginWindow}) {
   const [cred, setCred] = useState({ email: "", password: "" });
   const [login, setLogin] = useState(false);
   const mailRegEx = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
@@ -70,8 +70,11 @@ function Login({ handleCloseModal }) {
 
         <div className="info mt-2">
           <p>
-            If you are a new user please select any other login option from
-            previous page.
+            If you are a new user please select any other login option or 
+            <span 
+            style={{color:"blue", cursor:"pointer"}} 
+            onClick={()=>setLoginWindow(false)}
+            > click here</span>.
           </p>
         </div>
         {err.status && <div className="error">{err.message}</div>}

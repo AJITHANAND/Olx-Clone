@@ -29,6 +29,8 @@ import GlobeIcon from "../../assets/icons/GlobeIcon";
 import LocationIcon from "../../assets/icons/LocationIcon";
 import axios from "axios";
 import LogoutIcon from "../../assets/icons/LogoutIcon";
+import Signup from "../Signup/Signup";
+import AuthModal from "../Auth/AuthModal";
 function Header() {
   const [showModal, setShowModal] = useState(false);
   const { user } = useContext(AuthContext);
@@ -408,7 +410,9 @@ function Header() {
         showModal={showModal}
         handleCloseModal={handleCloseModal}
         contentComponent={(handleCloseModal) => (
-          <Login handleCloseModal={handleCloseModal} />
+          <AuthModal handleCloseModal={handleCloseModal} login={true} />
+          // <Login handleCloseModal={handleCloseModal} />
+          // < Signup handleCloseModal={handleCloseModal} />
         )}
       />
     </div>

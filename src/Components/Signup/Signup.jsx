@@ -1,133 +1,121 @@
-import React, { useState,useContext } from 'react';
-import Logo from '../../olx-logo.png';
-import './Signup.css';
-import { FirebaseContext } from '../../Contexts/FirebaseContext';
-import { createUserWithEmailAndPassword, getAuth,updatePhoneNumber,updateProfile } from 'firebase/auth';
-import { userCollection } from '../../firebase/constants';
-import { addDoc } from 'firebase/firestore';
-import { useNavigate } from 'react-router-dom';
+import { useState, useContext } from "react";
+import "./Signup.css";
+import { FirebaseContext } from "../../Contexts/FirebaseContext";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  updateProfile,
+} from "firebase/auth";
+import { userCollection } from "../../firebase/constants";
+import { addDoc } from "firebase/firestore";
 
-
-
-
-export default function Signup() {
-  const {Firebase} = useContext(FirebaseContext);
+export default function Signup({ handleCloseModal ,setLoginWindow}) {
+  const { Firebase } = useContext(FirebaseContext);
   const auth = getAuth(Firebase);
-  const navigate = useNavigate();
-
-  const [user,setUser] = useState({
-    'username':'',
-    'email':'',
-    'phone':'',
-    'password':''
+  const [user, setUser] = useState({
+    username: "",
+    email: "",
+    phone: "",
+    password: "",
   });
 
-  const handleForm = (e)=>{
-    setUser(
-      {
-        ...user,
-        [e.target.name]:e.target.value
-      }
-    )
-  }
+  const handleForm = (e) => {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-  const formSubmit = (e)=>{
+  const formSubmit = (e) => {
     e.preventDefault();
-    createUserWithEmailAndPassword(auth,user.email,user.password)
-      .then((userCredential)=>{
-
-        updateProfile(userCredential.user,{
-          displayName: user.username
-        })
+    createUserWithEmailAndPassword(auth, user.email, user.password)
+      .then((userCredential) => {
+        updateProfile(userCredential.user, {
+          displayName: user.username,
+        });
         // .then(()=>alert('username added'))
         // .catch((error)=>console.log(error.message));
 
-        const userData =  {
-          uid : userCredential.user.uid,
-          username : user.username,
-          phone : user.phone
-        }
-        addDoc(userCollection,userData).then(
-          ()=>{
-            navigate('/')
-          }
-        ).catch((error)=>{
-          alert(error.message);
+        const userData = {
+          uid: userCredential.user.uid,
+          username: user.username,
+          phone: user.phone,
+          liked: [],
+        };
+        addDoc(userCollection, userData)
+          .then(() => {
+            handleCloseModal();
+          })
+          .catch((error) => {
+            alert(error.message);
+            console.log(error);
+          });
+      })
+      .catch((error) => {
+        if (error.code === "auth/email-already-in-use") {
+          alert("Email Already in Use , Please login");
+          setLoginWindow(true);
+        } else if (error.code === "auth/invalid-email") {
+          alert("Invalid Email");
+        } else if (error.code === "auth/weak-password") {
+          alert("Weak Password");
+        } else {
           console.log(error);
-        });
-      })
-      .catch((error)=>{
-        if (error.code === 'auth/email-already-in-use') {
-          alert('Email Already in Use');
         }
-        else if (error.code === 'auth/invalid-email') {
-          alert('Invalid Email');
-        }
-        else if (error.code === 'auth/weak-password') {
-          alert('Weak Password');
-        }
-        else{
-          console.log(error)
-        }
-      })
-  }
-
+      });
+  };
   return (
     <div>
-      <div className="signupParentDiv">
-        <img width="200px" height="200px" src={Logo}></img>
-        <form onSubmit={(e)=>formSubmit(e)}>
-          <label htmlFor="username">Username</label>
-          <br />
+      <form onSubmit={(e) => formSubmit(e)}>
+        <div className="login-centerDiv">
+          <h3 className="log-Mail">
+            <span>Enter your details to create Account</span>
+          </h3>
           <input
-            className="input"
-            type="text"
-            id="username"
+            onChange={(e) => handleForm(e)}
             name="username"
-            placeholder="John"
-            onChange={(e)=>handleForm(e)}
+            className="w-100"
+            type="text"
+            placeholder="Username"
           />
-          <br />
-          <label htmlFor="email">Email</label>
-          <br />
           <input
-            className="input"
-            type="email"
-            id="email"
-            name="email"
-            placeholder="john@mail.com"
-            onChange={(e)=>handleForm(e)}
-
-          />
-          <br />
-          <label htmlFor="phone">Phone</label>
-          <br />
-          <input
-            className="input"
-            type="number"
-            id="phone"
+            onChange={(e) => handleForm(e)}
             name="phone"
-            placeholder="98 76 45 32 10"
-            onChange={(e)=>handleForm(e)}
-
+            className="w-100 mt-1"
+            type="tel"
+            pattern="[0-9]{10}"
+            placeholder="Phone Number"
           />
-          <br />
-          <label htmlFor="lname">Password</label>
-          <br />
           <input
-            className="input"
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Tough Password"
-            onChange={(e)=>handleForm(e)}
+            onChange={(e) => handleForm(e)}
+            name="email"
+            className="w-100 mt-1"
+            type="text"
+            placeholder="Email"
           />
-          <br />
-          <br />
-          <button>Signup</button>
-        </form>
-        <a onClick={()=>navigate('/login')}>Already have an account?</a>
-      </div>
+
+          <input
+            onChange={(e) => handleForm(e)}
+            name="password"
+            className="w-100 mt-1"
+            type="password"
+            placeholder="password"
+          />
+
+          <button className="nextBtn  w-100 mt-2 nextEnabled">Signup</button>
+          <div className="disclaimer  mt-1">
+            <p>
+              Your email is never shared with external parties nor do we use it
+              to spam you in any way.<br/>
+              Already have an account ? 
+              <span
+                style={{ color: "blue", cursor: "pointer" }}
+                onClick={() => setLoginWindow(true)}> click here</span>
+                
+            </p>
+          </div>
+        </div>
+      </form>
     </div>
   );
 }

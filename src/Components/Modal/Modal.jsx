@@ -4,7 +4,6 @@ import OlxLogo from "../../assets/OlxLogo";
 import "./Modal.css";
 
 function HeaderModal({ showModal, handleCloseModal, contentComponent }) {
-
   return (
     <Modal
       className="header-modal d-flex justify-content-center align-items-center"
