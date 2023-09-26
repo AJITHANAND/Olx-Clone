@@ -95,6 +95,9 @@ function Login({ handleCloseModal ,setLoginWindow}) {
             Your email is never shared with external parties nor do we use it to
             spam you in any way.
           </p>
+          <p>
+            mail: test@mail.com & pass: Test@123
+          </p>
         </div>
       </div>
     </div>
